@@ -1,8 +1,6 @@
-import type { DepartmentData } from "../../types/department";
-
 const base = "/departments/CPE"; // public folder path
 
-export const CPE: DepartmentData = {
+export const CPE = {
   code: "CPE",
   title: "COMPUTER ENGINEERING",
   subtitle: "Bachelor of Science in Computer Engineering",

@@ -5,11 +5,11 @@ import SectionTitle from "../../components/SectionTitle";
 import Footer from "../../components/Footer";
 import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { fetchDepartmentData } from "../../lib/departmentData";
-import type { DepartmentData } from "../../types/department";
+import type { MFE } from "../../data/department/MFE";
 import "../../styles/departments/MFE.css";
 
 export default function MFEPage() {
-  const [baseDept, setBaseDept] = useState<DepartmentData | null>(null);
+  const [baseDept, setBaseDept] = useState<typeof MFE | null>(null);
   const [error, setError] = useState<string>("");
 
   useEffect(() => {

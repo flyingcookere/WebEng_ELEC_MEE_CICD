@@ -1,13 +1,9 @@
-import type { DepartmentData } from "../../types/department";
-
 const base = "/departments/CE"; // public folder path
 
-export const CE: DepartmentData = {
+export const CE = {
   code: "CE",
   title: "CIVIL ENGINEERING",
   subtitle: "Bachelor of Science in Civil Engineering",
-
-
 
   theme: { accentHex: "#2563eb" },
 

@@ -1,77 +1,4 @@
-export type BaseLandingSectionData = {
-  id: string;
-  title: string;
-  assignedGroup: string;
-  statusLabel: string;
-};
-
-export type MissionVisionSectionData = BaseLandingSectionData & {
-  missionText: string;
-  visionText: string;
-};
-
-export type DepartmentGridSectionData = BaseLandingSectionData & {
-  introText: string;
-};
-
-export type NewsItem = {
-  title: string;
-  date: string;
-};
-
-export type NewsSectionData = BaseLandingSectionData & {
-  items: NewsItem[];
-};
-
-export type FacilitiesSectionData = BaseLandingSectionData & {
-  highlights: string[];
-};
-
-export type StatisticItem = {
-  label: string;
-  value: string;
-};
-
-export type StatisticsSectionData = BaseLandingSectionData & {
-  stats: StatisticItem[];
-};
-
-export type ContactSectionData = BaseLandingSectionData & {
-  email: string;
-  phone: string;
-  address: string;
-};
-
-export type FooterLink = {
-  label: string;
-  href: string;
-};
-
-export type FooterSectionData = BaseLandingSectionData & {
-  links: FooterLink[];
-};
-
-export type LandingHeroData = {
-  eyebrow: string;
-  title: string;
-  primaryButtonLabel: string;
-  primaryButtonHref: string;
-};
-
-export type LandingPageData = {
-  hero: LandingHeroData;
-  sections: {
-    missionVision: MissionVisionSectionData;
-    departmentGrid: DepartmentGridSectionData;
-    news: NewsSectionData;
-    facilities: FacilitiesSectionData;
-    statistics: StatisticsSectionData;
-    contact: ContactSectionData;
-    footer: FooterSectionData;
-  };
-};
-
-export const landingPageData: LandingPageData = {
+export const landingPageData = {
   hero: {
     eyebrow: "LANDING PAGE • HERO SECTION",
     title: "Bulacan State University\nCollege of Engineering",
@@ -142,3 +69,5 @@ export const landingPageData: LandingPageData = {
     },
   },
 };
+
+export type LandingPageData = typeof landingPageData;

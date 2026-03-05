@@ -1,8 +1,6 @@
-import type { DepartmentData } from "../../types/department";
-
 const base = "/departments/MEE";
 
-export const MEE: DepartmentData = {
+export const MEE = {
   code: "MEE",
   title: "MECHATRONICS ENGINEERING",
   subtitle: "Bachelor of Science in Mechatronics Engineering",

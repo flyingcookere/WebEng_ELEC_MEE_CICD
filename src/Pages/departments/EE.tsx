@@ -5,11 +5,11 @@ import SectionTitle from "../../components/SectionTitle";
 import Footer from "../../components/Footer";
 import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { fetchDepartmentData } from "../../lib/departmentData";
-import type { DepartmentData } from "../../types/department";
+import type { EE } from "../../data/department/EE";
 import "../../styles/departments/EE.css";
 
 export default function EEPage() {
-  const [baseDept, setBaseDept] = useState<DepartmentData | null>(null);
+  const [baseDept, setBaseDept] = useState<typeof EE | null>(null);
   const [error, setError] = useState<string>("");
 
   useEffect(() => {

@@ -5,11 +5,11 @@ import SectionTitle from "../../components/SectionTitle";
 import Footer from "../../components/Footer";
 import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { fetchDepartmentData } from "../../lib/departmentData";
-import type { DepartmentData } from "../../types/department";
+import type { ECE } from "../../data/department/ECE";
 import "../../styles/departments/ECE.css";
 
 export default function ECEPage() {
-  const [baseDept, setBaseDept] = useState<DepartmentData | null>(null);
+  const [baseDept, setBaseDept] = useState<typeof ECE | null>(null);
   const [error, setError] = useState<string>("");
 
   useEffect(() => {

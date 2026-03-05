@@ -5,11 +5,11 @@ import SectionTitle from "../../components/SectionTitle";
 import Footer from "../../components/Footer";
 import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { fetchDepartmentData } from "../../lib/departmentData";
-import type { DepartmentData } from "../../types/department";
+import type { IE } from "../../data/department/IE";
 import "../../styles/departments/IE.css";
 
 export default function IEPage() {
-  const [baseDept, setBaseDept] = useState<DepartmentData | null>(null);
+  const [baseDept, setBaseDept] = useState<typeof IE | null>(null);
   const [error, setError] = useState<string>("");
 
   useEffect(() => {

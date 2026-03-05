@@ -1,26 +1,14 @@
 import { useEffect, useMemo, useState, type ReactNode } from "react";
 import { Link } from "react-router-dom";
-import {
-  landingPageData,
-  type BaseLandingSectionData,
-  type ContactSectionData,
-  type DepartmentGridSectionData,
-  type FacilitiesSectionData,
-  type FooterSectionData,
-  type MissionVisionSectionData,
-  type NewsSectionData,
-  type StatisticsSectionData,
-} from "../data/landing";
+import { landingPageData, type LandingPageData } from "../data/landing";
 import {
   loadLandingDraft,
   mergeLandingWithOverrides,
 } from "../lib/landingAdmin";
 
-type BaseSectionProps = {
-  data: BaseLandingSectionData;
-};
+type Sections = LandingPageData["sections"];
 
-function MissionVisionSection({ data }: { data: MissionVisionSectionData }) {
+function MissionVisionSection({ data }: { data: Sections["missionVision"] }) {
   return (
     <section id="mission-vision" className="max-w-6xl mx-auto px-6 py-10">
       <SectionCard data={data}>
@@ -31,7 +19,7 @@ function MissionVisionSection({ data }: { data: MissionVisionSectionData }) {
   );
 }
 
-function DepartmentGridSection({ data }: { data: DepartmentGridSectionData }) {
+function DepartmentGridSection({ data }: { data: Sections["departmentGrid"] }) {
   return (
     <section id="department-grid" className="max-w-6xl mx-auto px-6 py-10">
       <SectionCard data={data}>
@@ -41,7 +29,7 @@ function DepartmentGridSection({ data }: { data: DepartmentGridSectionData }) {
   );
 }
 
-function NewsSection({ data }: { data: NewsSectionData }) {
+function NewsSection({ data }: { data: Sections["news"] }) {
   return (
     <section id="news" className="max-w-6xl mx-auto px-6 py-10">
       <SectionCard data={data}>
@@ -57,7 +45,7 @@ function NewsSection({ data }: { data: NewsSectionData }) {
   );
 }
 
-function FacilitiesSection({ data }: { data: FacilitiesSectionData }) {
+function FacilitiesSection({ data }: { data: Sections["facilities"] }) {
   return (
     <section id="facilities" className="max-w-6xl mx-auto px-6 py-10">
       <SectionCard data={data}>
@@ -71,7 +59,7 @@ function FacilitiesSection({ data }: { data: FacilitiesSectionData }) {
   );
 }
 
-function StatisticsSection({ data }: { data: StatisticsSectionData }) {
+function StatisticsSection({ data }: { data: Sections["statistics"] }) {
   return (
     <section id="statistics" className="max-w-6xl mx-auto px-6 py-10">
       <SectionCard data={data}>
@@ -87,7 +75,7 @@ function StatisticsSection({ data }: { data: StatisticsSectionData }) {
   );
 }
 
-function ContactSection({ data }: { data: ContactSectionData }) {
+function ContactSection({ data }: { data: Sections["contact"] }) {
   return (
     <section id="contact" className="max-w-6xl mx-auto px-6 py-10">
       <SectionCard data={data}>
@@ -99,7 +87,7 @@ function ContactSection({ data }: { data: ContactSectionData }) {
   );
 }
 
-function LandingFooterSection({ data }: { data: FooterSectionData }) {
+function LandingFooterSection({ data }: { data: Sections["footer"] }) {
   return (
     <footer id="footer" className="border-t bg-gray-100">
       <div className="max-w-6xl mx-auto px-6 py-8 text-sm text-gray-500">
@@ -121,7 +109,7 @@ function LandingFooterSection({ data }: { data: FooterSectionData }) {
 function SectionCard({
   data,
   children,
-}: BaseSectionProps & { children?: ReactNode }) {
+}: { data: { id: string; title: string; assignedGroup: string; statusLabel: string }; children?: ReactNode }) {
   return (
     <div className="rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 px-6 py-10 text-center">
       <p className="text-xs font-semibold tracking-[0.14em] text-gray-500">
