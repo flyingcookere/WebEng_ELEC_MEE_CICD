@@ -4,13 +4,13 @@ import {
   clearDeptDraft,
   clearDeptOverrides,
   extractEditableContent,
+  getDeptDefaults,
   loadDeptDraft,
   loadDeptOverrides,
   saveDeptDraft,
   saveDeptOverrides,
   type DepartmentEditableContent,
 } from "../../lib/departmentAdmin";
-import { fetchDepartmentData } from "../../lib/departmentData";
 import { mergeWithShape } from "../../lib/jsonShape";
 import type { DepartmentData } from "../../types/department";
 import AdminAccessGate from "../../components/AdminAccessGate";
@@ -23,40 +23,15 @@ export default function CPEAdminPage() {
   const [baseDept, setBaseDept] = useState<DepartmentData | null>(null);
   const [form, setForm] = useState<DepartmentEditableContent | null>(null);
   const [status, setStatus] = useState("");
-  const [error, setError] = useState("");
 
   useEffect(() => {
-    let isCancelled = false;
+    const data = getDeptDefaults(code);
+    const defaults = extractEditableContent(data);
+    const draft = loadDeptDraft(code);
+    const overrides = loadDeptOverrides(code);
 
-    const load = async () => {
-      try {
-        setError("");
-        const data = await fetchDepartmentData(code);
-        const defaults = extractEditableContent(data);
-        const draft = loadDeptDraft(code);
-        const overrides = loadDeptOverrides(code);
-
-        if (!isCancelled) {
-          setBaseDept(data);
-          setForm(mergeWithShape(defaults, draft ?? overrides));
-          setStatus("");
-        }
-      } catch (loadError) {
-        if (!isCancelled) {
-          setError(
-            loadError instanceof Error
-              ? loadError.message
-              : "Failed to load department data."
-          );
-        }
-      }
-    };
-
-    load();
-
-    return () => {
-      isCancelled = true;
-    };
+    setBaseDept(data);
+    setForm(mergeWithShape(defaults, draft ?? overrides));
   }, []);
 
   useEffect(() => {

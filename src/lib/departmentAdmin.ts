@@ -1,25 +1,8 @@
+import { departments, type DeptCode } from "../data/department";
 import type { DepartmentData } from "../types/department";
+import { mergeWithShape } from "./jsonShape";
 
-export type DepartmentEditableContent = Pick<
-  DepartmentData,
-  | "programOverview"
-  | "peo"
-  | "so"
-  | "curriculum"
-  | "laboratories"
-  | "faculty"
-  | "careers"
->;
-
-const EDITABLE_KEYS: Array<keyof DepartmentEditableContent> = [
-  "programOverview",
-  "peo",
-  "so",
-  "curriculum",
-  "laboratories",
-  "faculty",
-  "careers",
-];
+export type DepartmentEditableContent = DepartmentData;
 
 function storageKey(code: string) {
   return `department-admin:${code.toUpperCase()}`;
@@ -29,27 +12,19 @@ function draftStorageKey(code: string) {
   return `department-admin-draft:${code.toUpperCase()}`;
 }
 
+export function getDeptDefaults(code: DeptCode): DepartmentData {
+  return departments[code];
+}
+
 export function extractEditableContent(
   dept: DepartmentData
 ): DepartmentEditableContent {
-  return {
-    programOverview: dept.programOverview,
-    peo: dept.peo,
-    so: dept.so,
-    curriculum: dept.curriculum,
-    laboratories: dept.laboratories,
-    faculty: dept.faculty,
-    careers: dept.careers,
-  };
-}
-
-function isEditableContent(value: unknown): value is DepartmentEditableContent {
-  if (!value || typeof value !== "object") return false;
-  return EDITABLE_KEYS.every((key) => key in (value as Record<string, unknown>));
+  // Return everything now to be dynamic.
+  return { ...dept };
 }
 
 export function loadDeptOverrides(
-  code: string
+  code: DeptCode
 ): DepartmentEditableContent | null {
   if (typeof window === "undefined") return null;
 
@@ -58,24 +33,24 @@ export function loadDeptOverrides(
 
   try {
     const parsed = JSON.parse(raw) as unknown;
-    if (!isEditableContent(parsed)) return null;
-    return parsed;
+    const defaults = getDeptDefaults(code);
+    return mergeWithShape(defaults, parsed) as DepartmentEditableContent;
   } catch {
     return null;
   }
 }
 
-export function saveDeptOverrides(code: string, content: DepartmentEditableContent) {
+export function saveDeptOverrides(code: DeptCode, content: DepartmentEditableContent) {
   if (typeof window === "undefined") return;
   window.localStorage.setItem(storageKey(code), JSON.stringify(content));
 }
 
-export function clearDeptOverrides(code: string) {
+export function clearDeptOverrides(code: DeptCode) {
   if (typeof window === "undefined") return;
   window.localStorage.removeItem(storageKey(code));
 }
 
-export function loadDeptDraft(code: string): DepartmentEditableContent | null {
+export function loadDeptDraft(code: DeptCode): DepartmentEditableContent | null {
   if (typeof window === "undefined") return null;
 
   const raw = window.localStorage.getItem(draftStorageKey(code));
@@ -83,45 +58,41 @@ export function loadDeptDraft(code: string): DepartmentEditableContent | null {
 
   try {
     const parsed = JSON.parse(raw) as unknown;
-    if (!isEditableContent(parsed)) return null;
-    return parsed;
+    const defaults = getDeptDefaults(code);
+    return mergeWithShape(defaults, parsed) as DepartmentEditableContent;
   } catch {
     return null;
   }
 }
 
-export function saveDeptDraft(code: string, content: DepartmentEditableContent) {
+export function saveDeptDraft(code: DeptCode, content: DepartmentEditableContent) {
   if (typeof window === "undefined") return;
   window.localStorage.setItem(draftStorageKey(code), JSON.stringify(content));
 }
 
-export function clearDeptDraft(code: string) {
+export function clearDeptDraft(code: DeptCode) {
   if (typeof window === "undefined") return;
   window.localStorage.removeItem(draftStorageKey(code));
 }
 
-export function mergeDeptWithOverrides(dept: DepartmentData): DepartmentData {
+export function mergeDeptWithOverrides<T extends DepartmentData>(dept: T): T {
   const isPreviewMode =
     typeof window !== "undefined" &&
     new URLSearchParams(window.location.search).get("preview") === "dept";
 
-  const source = isPreviewMode ? loadDeptDraft(dept.code) : loadDeptOverrides(dept.code);
+  const code = dept.code as DeptCode;
+  const source = isPreviewMode ? loadDeptDraft(code) : loadDeptOverrides(code);
+
   if (!source) return dept;
 
-  return {
-    ...dept,
-    ...source,
-  };
+  return mergeWithShape(dept, source) as T;
 }
 
-export function parseEditableContent(json: string): DepartmentEditableContent {
+export function parseEditableContent(
+  code: DeptCode,
+  json: string
+): DepartmentEditableContent {
   const parsed = JSON.parse(json) as unknown;
-
-  if (!isEditableContent(parsed)) {
-    throw new Error(
-      "Invalid JSON structure. Expected keys: programOverview, peo, so, curriculum, laboratories, faculty, careers."
-    );
-  }
-
-  return parsed;
+  const defaults = getDeptDefaults(code);
+  return mergeWithShape(defaults, parsed) as DepartmentEditableContent;
 }

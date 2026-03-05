@@ -4,42 +4,14 @@ import Navbar from "../../components/navbar";
 import SectionTitle from "../../components/SectionTitle";
 import Footer from "../../components/Footer";
 import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
-import { fetchDepartmentData } from "../../lib/departmentData";
-import type { IE } from "../../data/department/IE";
+import { IE } from "../../data/department/IE";
 import "../../styles/departments/IE.css";
 
 export default function IEPage() {
-  const [baseDept, setBaseDept] = useState<typeof IE | null>(null);
-  const [error, setError] = useState<string>("");
-
-  useEffect(() => {
-    let isCancelled = false;
-
-    const load = async () => {
-      try {
-        setError("");
-        const data = await fetchDepartmentData("IE");
-        if (!isCancelled) setBaseDept(data);
-      } catch (loadError) {
-        if (!isCancelled) {
-          setError(
-            loadError instanceof Error
-              ? loadError.message
-              : "Failed to load department data."
-          );
-        }
-      }
-    };
-
-    load();
-
-    return () => {
-      isCancelled = true;
-    };
-  }, []);
+  const [baseDept] = useState<typeof IE>(IE);
 
   const dept = useMemo(
-    () => (baseDept ? mergeDeptWithOverrides(baseDept) : null),
+    () => mergeDeptWithOverrides(baseDept),
     [baseDept]
   );
 
@@ -56,22 +28,6 @@ export default function IEPage() {
       link.href = `/icons/${dept.code.toLowerCase()}.svg`;
     }
   }, [dept]);
-
-  if (error) {
-    return (
-      <div className="min-h-screen grid place-items-center px-6 text-center">
-        <p className="text-sm text-red-700">{error}</p>
-      </div>
-    );
-  }
-
-  if (!dept) {
-    return (
-      <div className="min-h-screen grid place-items-center px-6 text-center">
-        <p className="text-sm text-gray-600">Loading department page...</p>
-      </div>
-    );
-  }
 
   const onNav = (id: string) => {
     const el = document.getElementById(id);
