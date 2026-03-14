@@ -21,11 +21,11 @@
   --me-panel-glass-strong: rgba(255, 255, 255, 0.94);
   --me-accent-tint: rgba(49, 95, 211, 0.1);
   --me-accent-tint-strong: rgba(49, 95, 211, 0.18);
-  --me-signal-tint: rgba(177, 42, 28, 0.08);
+  --me-signal-tint: rgba(49, 95, 211, 0.06);
   --me-border-subtle: rgba(70, 84, 108, 0.14);
   --me-border-strong: rgba(70, 84, 108, 0.24);
   --me-border-accent: rgba(49, 95, 211, 0.2);
-  --me-border-signal: rgba(177, 42, 28, 0.18);
+  --me-border-signal: rgba(49, 95, 211, 0.14);
   --me-overlay: rgba(17, 24, 39, 0.28);
   --me-shadow-soft: rgba(35, 53, 94, 0.08);
   --me-shadow-medium: rgba(35, 53, 94, 0.12);
@@ -602,6 +602,7 @@
   border-radius: 1.2rem;
   background: var(--me-signal-tint);
   border: 1px solid var(--me-border-signal);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.7);
 }
 
 .me-credential-list__value {
