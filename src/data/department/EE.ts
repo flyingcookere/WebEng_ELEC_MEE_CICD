@@ -14,7 +14,7 @@ export const EE = {
     heroBig: `${base}/cover.png`,
     heroSmall1: `${base}/passing.png`,
     heroSmall2: `${base}/logo.png`,
-    peo: `${base}/peo.png`,
+    peo: `${base}/logo.png`,
     watermark: `${base}/watermark.png`
   },
 
@@ -108,25 +108,25 @@ export const EE = {
     ]
   },
 
-  curriculum: {
+ curriculum: {
     title: "Curriculum Overview",
     text: "Edit curriculum overview paragraph here.",
     bullets: [
       {
-        title: "Pre-Engineering Formation (Early Curriculum Stages)",
-        text: "The curriculum begins with a solid foundation in mathematics, natural sciences, computing, and introductory engineering."
+        title: "Pre‑Engineering Formation (Early Curriculum Stages)",
+        text: "The curriculum begins with a solid foundation in mathematics, natural sciences, computing, and introductory engineering, providing students with the analytical tools needed to engage with more advanced electrical engineering coursework. These early subjects align with the OBE mandate for structured progression, ensuring that learners acquire the core reasoning, communication skills, and ethical awareness necessary for subsequent technical learning.  \tGeneral education courses complement these technical foundations by strengthening students' communication, critical‑thinking, and societal awareness—competencies later applied in laboratory work, design activities, and collaborative problem‑solving tasks. The College’s sustained curricular development philosophy ensures that these foundational courses support not only academic progression but also student readiness for higher‑level engineering thinking."
       },
       {
         title: "Core Electrical Engineering Scaffold (Intermediate Stages)",
-        text: "Students advance into circuits, electronics, signals, controls, instrumentation, electromagnetics, and energy conversion."
+        text: "Following the foundational courses, students advance into core electrical engineering subjects, which define the discipline’s analytical and technical structure: \n\n •\tCircuits & Electronics – development of analytical and design skills for linear circuits and electronic devices, supported by laboratory measurement and data interpretation activities.\n •\tSignals, Controls, and Instrumentation – introduction to signal behavior, feedback systems, and measurement frameworks essential to automation and monitoring applications. \n •\tElectromagnetics & Energy Conversion – principles of electric and magnetic fields, electrical machines, and conversion processes forming the basis for power and systems engineering.  The OBE framework requires that teaching strategies and assessments in these courses directly map to student outcomes (problem‑solving, experimentation, communication, design under constraints, etc.) and are monitored for CQI."
       },
       {
         title: "Professional Tracks and Application Domains (Advanced Stages)",
-        text: "Advanced study includes power systems engineering, renewable energy technologies, and control systems."
+        text: "At advanced levels, students engage in applied and domain‑specific learning consistent with publicly published descriptions of BulSU’s BSEE areas: \n\n\n •\tPower Systems Engineering – study of generation, transmission, distribution, system protection, and grid operations. \n•\tRenewable Energy & Sustainable Technologies – topics related to emerging energy systems and efficiency, aligned with evolving national industry needs.\n •\tControl Systems & Instrumentation – automation, sensors, and process control for industrial applications.   Laboratories, design activities, and project‑based learning strengthen students’ ability to work in teams, communicate effectively, apply modern engineering tools, and make ethical and contextual engineering decisions—all outcomes required under the College’s OBE structure."
       },
       {
         title: "Integrative Experiences, Industry Linkages, and Continuous Improvement",
-        text: "The curriculum culminates in integrative learning experiences and capstone projects aligned with industry needs."
+        text: "The curriculum culminates in integrative learning experiences, where students synthesize knowledge from foundational, core, and advanced courses to propose and implement engineering solutions. These activities serve as capstone‑style demonstrations of students’ readiness for practice within the competencies defined by the OBE framework. \t \tThe program incorporates industry‑aligned applications, encouraging students to engage with challenges relevant to local power, industrial, and community contexts. Such alignment reflects the College’s commitment to program relevance and responsiveness, supported by ongoing curricular enhancement efforts.  CQI mechanisms ensure that feedback from assessments, stakeholders, and performance data continually refine the curriculum and instructional strategies."
       }
     ]
   },
@@ -134,9 +134,22 @@ export const EE = {
   laboratories: {
     title: "Laboratories",
     items: [
-      "Lab 1",
-      "Lab 2",
-      "Lab 3"
+      {
+        name: "Circuits and Electronics Laboratory",
+        description: "Equipped with modern instruments for circuit analysis, design, and testing, supporting hands-on learning in electronics and circuit theory.",
+        photo: `${base}/logo.png`
+      },
+      {
+        name: "Signals, Controls, and Instrumentation Laboratory",
+        description: "Dedicated to the study and application of signal processing, control systems, and instrumentation techniques.",
+        photo: `${base}/logo.png`
+
+      },
+      {
+        name: "Electromagnetics and Energy Conversion Laboratory",
+        description: "Focuses on experiments related to electromagnetics, electrical machines, and energy conversion processes.",
+        photo: `${base}/logo.png`
+      }
     ]
   },
 
@@ -145,75 +158,93 @@ export const EE = {
     members: [
       { 
         name: "Engr. Eleazer C. Nabong", 
-        role: "Department Chair" 
+        role: "Department Chair",
+        photo: `${base}/logo.png`
       },
       { 
         name: "Engr. Arjay R. Alba", 
-        role: "Faculty" 
+        role: "Faculty",
+        photo: `${base}/alba.png`
       },
       { 
         name: "Engr. Dennis L. Aguirre", 
-        role: "Faculty" 
+        role: "Faculty" ,
+        photo: `${base}/logo.png`
       },
       { 
         name: "Engr. Reynaldo C. Alejandria", 
-        role: "Faculty" 
+        role: "Faculty" ,
+        photo: `${base}/logo.png`
       },
       { 
         name: "Engr. Ronan Cadmiel C. Castro", 
-        role: "Faculty" 
+        role: "Faculty" ,
+        photo: `${base}/logo.png`
       },
       { 
         name: "Engr. John Byrone A. Clavio", 
-        role: "Faculty" 
+        role: "Faculty" ,
+        photo: `${base}/logo.png`
       },
       { 
         name: "Engr. John Paul V. Dela Cruz", 
-        role: "Faculty" 
+        role: "Faculty" ,
+        photo: `${base}/logo.png`
       },
       { 
         name: "Engr. Jovita SP. Domingo", 
-        role: "Faculty" 
+        role: "Faculty" ,
+        photo: `${base}/logo.png`
       },
       { 
         name: "Engr. Riah Ann DR. Fermin-Cayanan", 
-        role: "Faculty" 
+        role: "Faculty",
+        photo: `${base}/logo.png` 
       },
       { 
         name: "Engr. Nhowel F. Jimenez", 
-        role: "Faculty" 
+        role: "Faculty",
+        photo: `${base}/logo.png`
       },
       { 
         name: "Engr. Mark Adrian R. Lunaria", 
-        role: "Faculty" 
+        role: "Faculty" ,
+        photo: `${base}/logo.png`
       },
       { 
         name: "Engr. Erwin DR. Magsakay", 
-        role: "Faculty" 
+        role: "Faculty" ,
+        photo: `${base}/logo.png`
       },
       { 
         name: "Engr. Mark Louie D. Martinez", 
-        role: "Faculty" 
+        role: "Faculty",
+        photo: `${base}/logo.png`
       },
       { 
         name: "Engr. Rogelio C. Pimentel", 
-        role: "Faculty" 
+        role: "Faculty" ,
+        photo: `${base}/logo.png`
       },
       { 
         name: "Engr. Anthony T. Reyes", 
-        role: "Faculty" 
+        role: "Faculty" ,
+        photo: `${base}/logo.png`
       },
       { 
         name: "Engr. Ronel I. Serrano", 
-        role: "Faculty" 
+        role: "Faculty" ,
+        photo: `${base}/logo.png`
       },
       { 
         name: "Engr. Allan Clark H. Timoteo", 
-        role: "Faculty" 
+        role: "Faculty" ,
+        photo: `${base}/logo.png`
       },
       { 
         name: "Engr. Diane H. Villanueva", 
-        role: "Faculty" 
+        role: "Faculty" ,
+        photo: `${base}/logo.png`
       },
     ]
   },

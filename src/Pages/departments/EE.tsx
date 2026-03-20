@@ -87,14 +87,14 @@ export default function EEPage() {
       <section id="about" className="max-w-6xl mx-auto px-6 pt-10">
         <div className="text-left">
           <div className="mt-2 text-lg font-bold text-gray-900">{dept.programOverview.subtitle}</div>
-          
-            {dept.programOverview.contents.map((c, idx) => (
-              <div key={idx}>
-                <div className="mt-5 text-sm font-semibold text-red-900">{c.heading}</div>
-                <p className="mt-3 text-sm text-gray-500 leading-relaxed max-w-6xl">{c.text}</p>
-              </div>
-            ))}
-          
+
+          {dept.programOverview.contents.map((c, idx) => (
+            <div key={idx}>
+              <div className="mt-5 text-sm font-semibold text-red-900">{c.heading}</div>
+              <p className="mt-3 text-sm text-gray-500 leading-relaxed max-w-6xl">{c.text}</p>
+            </div>
+          ))}
+
 
         </div>
 
@@ -195,7 +195,11 @@ export default function EEPage() {
           {dept.laboratories.items.map((lab, idx) => (
             <div key={idx} className="rounded-2xl border bg-white p-6">
               <div className="text-xs font-semibold text-gray-400">LAB {idx + 1}</div>
-              <h3 className="mt-2 text-base font-bold text-gray-900">{lab}</h3>
+              <div className="mt-2 h-50 rounded-lg overflow-hidden bg-gray-200">
+                <img src={lab.photo} alt={lab.name} className="w-full h-full object-cover" />
+              </div>
+              <h3 className="mt-1 font-bold text-gray-900">{lab.name}</h3>
+              <p className="mt-2 text-sm text-gray-500">{lab.description}</p>
             </div>
           ))}
         </div>
@@ -204,11 +208,26 @@ export default function EEPage() {
       <section id="faculty" className="max-w-6xl mx-auto px-6 pt-16">
         <SectionTitle center eyebrow={dept.title} title={dept.faculty.title} />
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 gap-6">
           {dept.faculty.members.map((member, idx) => (
-            <div key={`${member.name}-${idx}`} className="rounded-2xl border bg-white p-6">
-              <h3 className="font-bold text-red-800">{member.name}</h3>
-              <p className="mt-1 text-sm text-gray-500">{member.role}</p>
+            <div
+              key={`${member.name}-${idx}`}
+              className="rounded-4xl border bg-white overflow-hidden shadow-sm hover:shadow-md transition"
+            >
+              {/* PHOTO CONTAINER */}
+              <div className="w-full h-80 bg-gray-200">
+                <img
+                  src={member.photo || "/faculty/placeholder.png"}
+                  alt={member.name}
+                  className="w-full h-full object-cover"
+                />
+              </div>
+
+              {/* INFO */}
+              <div className="p-4 text-center">
+                <h3 className="font-bold text-red-800">{member.name}</h3>
+                <p className="mt-1 text-sm text-gray-500">{member.role}</p>
+              </div>
             </div>
           ))}
         </div>
