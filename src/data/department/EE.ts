@@ -6,7 +6,7 @@ export const EE = {
   subtitle: "Bachelor of Science in Electrical Engineering",
 
   theme: {
-    accentHex: "#f59e0b"
+    accentHex: "#FF4500",
   },
 
   images: {
@@ -36,8 +36,8 @@ export const EE = {
     ],
     stats: {
       nonTeaching: 0,
-      faculty: 0,
-      students: 0
+      faculty: 16,
+      students: 512
     }
   },
 
@@ -53,7 +53,7 @@ export const EE = {
 
   so: {
     title: "Student Outcomes (SO)",
-    subtitle: "Edit SO subtitle here.",
+    subtitle: "",
     outcomes: [
       {
         title: "A",
@@ -139,7 +139,7 @@ export const EE = {
               { code: "COE 104", title: "Calculus 2", lab_units: 0, lab_hours: 0, lec_units: 3, lec_hours: 3, prereq: "COE 102", coreq: "None" }, 
               { code: "EE 100", title: "Mathematics for Electrical Engineers", lab_units: 0, lab_hours: 0, lec_units: 2, lec_hours: 2, prereq: "COE 100", coreq: "None" }, 
               { code: "EE 101", title: "EE Orientation", lab_units: 0, lab_hours: 0, lec_units: 2, lec_hours: 2, prereq: "COE 101", coreq: "None" }, 
-              { code: "EE 102D", title: "EE Drawing", lab_units: 1, lab_hours: 3, lec_units: 0, lec_hours: 0, prereq: "COE 100", coreq: "None" }, 
+              { code: "EE 102D", title: "EE Drawing", lab_units: 1, lab_hours: 3, lec_units: 0, lec_hours: 0, prereq: "None", coreq: "None" }, 
               { code: "COE 105", title: "Physics for Engineers", lab_units: 0, lab_hours: 0, lec_units: 3, lec_hours: 3, prereq: "COE 102", coreq: "COE 104" }, 
               { code: "COE 105L", title: "Physics for Engineers - Lab", lab_units: 1, lab_hours: 3, lec_units: 0, lec_hours: 0, prereq: "COE 102", coreq: "COE104, COE105" }, 
               { code: "RPH 101", title: "Readings in Philippine History", lab_units: 0, lab_hours: 0, lec_units: 3, lec_hours: 3, prereq: "None", coreq: "None" }, 
@@ -169,7 +169,6 @@ export const EE = {
               { code: "EE 205L", title: "Computer Programming", lab_units: 1, lab_hours: 3, lec_units: 0, lec_hours: 0, prereq: "None", coreq: "None" }, 
               { code: "EE 206L", title: "Computer-Aided Drafting", lab_units: 1, lab_hours: 3, lec_units: 0, lec_hours: 0, prereq: "EE 102D", coreq: "None" }, 
               { code: "RLW 101", title: "Life and Works of Rizal", lab_units: 0, lab_hours: 0, lec_units: 3, lec_hours: 3, prereq: "None", coreq: "None" }, 
-              { code: "COE 103L", title: "Chemistry for Engineers - Lab", lab_units: 0, lab_hours: 0, lec_units: 0, lec_hours: 0, prereq: "None", coreq: "None" }, 
               { code: "AE 101", title: "GE Elective 2 (Academic English)", lab_units: 0, lab_hours: 0, lec_units: 3, lec_hours: 3, prereq: "None", coreq: "None" }, 
               { code: "SSP 101d", title: "GE Elective 3 (The Entrepreneurial Mind)", lab_units: 0, lab_hours: 0, lec_units: 3, lec_hours: 3, prereq: "None", coreq: "None" }, 
               { code: "PE 12", title: "PATHFit 3", lab_units: 0, lab_hours: 0, lec_units: 2, lec_hours: 2, prereq: "PE 11", coreq: "None" }, 
@@ -267,10 +266,10 @@ export const EE = {
               { code: "EE 405", title: "Instrumentation and Control", lab_units: 0, lab_hours: 0, lec_units: 2, lec_hours: 2, prereq: "EE 314/314L", coreq: "None" },
               { code: "EE 405L", title: "Instrumentation and Control Lab", lab_units: 1, lab_hours: 3, lec_units: 0, lec_hours: 0, prereq: "EE 314/314L", coreq: "EE 405" },
               { code: "EE 406", title: "Technopreneurship", lab_units: 0, lab_hours: 0, lec_units: 3, lec_hours: 3, prereq: "EE 317", coreq: "EE 404D" },
-              { code: "EE 407", title: "MATH Correlation", lab_units: 1, lab_hours: 3, lec_units: 0, lec_hours: 0, prereq: "EE 309/309L, EE 310/310L, EE 311/311L, EE 313, EE 314/314L", coreq: "None" },
+              { code: "EE 407", title: "MATH Correlation", lab_units: 1, lab_hours: 3, lec_units: 0, lec_hours: 0, prereq: "EE 309/309L, EE 310/310L, EE 311/311L, EE 313, EE 314/314L, EE 315, EE 316, EE 317, EE 318", coreq: "None" },
               { code: "EE 408", title: "ESAS Correlation", lab_units: 1, lab_hours: 3, lec_units: 0, lec_hours: 0, prereq: "EE 309/309L, EE 310/310L, EE 311/311L, EE 313, EE 314/314L, EE 315, EE 316, EE 317, EE 318", coreq: "None" },
-              { code: "EE_409", title: "Power Systems Analysis", lab_units: 0, lab_hours: 0, lec_units: 3, lec_hours: 3, prereq: "EE_303/303L", coreq: "EE_401/401L" },
-              { code: "EE_409L", title: "Power Systems Analysis Lab", lab_units: 1, lab_hours: 3, lec_units: 0, lec_hours: 0, prereq: "EE_303/303L", coreq: "EE_401/401L, EE_409" },
+              { code: "EE 409", title: "Power Systems Analysis", lab_units: 0, lab_hours: 0, lec_units: 3, lec_hours: 3, prereq: "EE 303/303L", coreq: "EE 401/401L" },
+              { code: "EE 409L", title: "Power Systems Analysis Lab", lab_units: 1, lab_hours: 3, lec_units: 0, lec_hours: 0, prereq: "EE 303/303L", coreq: "EE 401/401L, EE 409" },
               { code: "TOTAL", title: "", lab_units: 6, lab_hours: 18, lec_units: 14, lec_hours: 14, prereq: "None", coreq: "None" },
             ]
           },
@@ -316,19 +315,19 @@ export const EE = {
     title: "Laboratories",
     items: [
       {
-        name: "Circuits and Electronics Laboratory",
-        description: "Equipped with modern instruments for circuit analysis, design, and testing, supporting hands-on learning in electronics and circuit theory.",
+        name: "NAME OF LABORATORY 1",
+        description: "Short description of the laboratory's focus and activities.",
         photo: `${base}/logo.png`
       },
       {
-        name: "Signals, Controls, and Instrumentation Laboratory",
-        description: "Dedicated to the study and application of signal processing, control systems, and instrumentation techniques.",
+        name: "NAME OF LABORATORY 2",
+        description: "Short description of the laboratory's focus and activities.",
         photo: `${base}/logo.png`
 
       },
       {
-        name: "Electromagnetics and Energy Conversion Laboratory",
-        description: "Focuses on experiments related to electromagnetics, electrical machines, and energy conversion processes.",
+        name: "NAME OF LABORATORY 3",
+        description: "Short description of the laboratory's focus and activities.",
         photo: `${base}/logo.png`
       }
     ]
@@ -362,11 +361,11 @@ export const EE = {
         role: "Faculty" ,
         photo: `${base}/castro.png`
       },
-      { 
-        name: "Engr. John Byrone A. Clavio", 
-        role: "Faculty" ,
-        photo: `${base}/logo.png`
-      },
+      // { 
+      //   name: "Engr. John Byrone A. Clavio", 
+      //   role: "Faculty" ,
+      //   photo: `${base}/logo.png`
+      // },
       { 
         name: "Engr. John Paul V. Dela Cruz", 
         role: "Faculty" ,
@@ -392,11 +391,11 @@ export const EE = {
         role: "Faculty" ,
         photo: `${base}/lunaria.png`
       },
-      { 
-        name: "Engr. Erwin DR. Magsakay", 
-        role: "Faculty" ,
-        photo: `${base}/logo.png`
-      },
+      // { 
+      //   name: "Engr. Erwin DR. Magsakay", 
+      //   role: "Faculty" ,
+      //   photo: `${base}/logo.png`
+      // },
       { 
         name: "Engr. Mark Louie D. Martinez", 
         role: "Faculty",

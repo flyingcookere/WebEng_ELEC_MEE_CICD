@@ -42,14 +42,6 @@ export default function EEPage() {
   const currentYearData = useMemo(() => {
     return baseDept.curriculum.years.find((y) => y.id === selectedYearId) || null;
   }, [selectedYearId, baseDept]);
-  
-  const nextSlide = () => {
-    setCurrentIndex((prev) => (prev + 1 === bullets.length ? 0 : prev + 1));
-  };
-
-  const prevSlide = () => {
-    setCurrentIndex((prev) => (prev === 0 ? bullets.length - 1 : prev - 1));
-  };
 
   return (
     <div className="bg-white">
@@ -124,55 +116,50 @@ export default function EEPage() {
       </section>
 
       <section id="peo" className="max-w-6xl mx-auto px-6 pt-16">
-      <SectionTitle center eyebrow={dept.title} title={dept.peo.title} subtitle={dept.peo.subtitle} />
+        <SectionTitle center eyebrow={dept.title} title={dept.peo.title} subtitle={dept.peo.subtitle} />
 
-      <div className="mt-12 grid grid-cols-12 gap-12 items-center">
-        {/* Left Side: Floating Logo */}
-        <div className="col-span-12 md:col-span-5 flex justify-center">
-          <div className="relative p-6">
-            <img 
-              src={dept.images.peo} 
-              alt="Department Logo" 
-              className="relative w-full max-w-[320px] animate-logo-float object-contain z-10" 
-            />
+        <div className="mt-12 grid grid-cols-12 gap-12 items-center">
+          <div className="col-span-12 md:col-span-5 flex justify-center">
+            <div className="relative p-6">
+              <img 
+                src={dept.images.peo} 
+                alt="Department Logo" 
+                className="relative w-full max-w-[320px] animate-logo-float object-contain z-10" 
+              />
+            </div>
+          </div>
+
+          <div className="col-span-12 md:col-span-7 space-y-4">
+            {dept.peo.bullets.map((b, idx) => (
+              <div 
+                key={idx} 
+                className="peo-card-racing group flex items-center gap-6 p-6 rounded-[1rem] transition-all duration-300 hover:shadow-lg"
+              >
+                <div className="relative flex-shrink-0">
+                  <div className="w-12 h-12 flex items-center justify-center rounded-full 
+                    bg-red-50 text-red-900 font-bold text-lg 
+                    group-hover:bg-red-900 group-hover:text-white 
+                    group-hover:shadow-[0_0_20px_rgba(153,27,27,0.4)]
+                    transition-all duration-300 z-10 relative">
+                    {idx + 1}
+                  </div>
+                  
+                  <div className="absolute inset-0 rounded-full border border-red-900/0 group-hover:border-red-900/20 group-hover:scale-150 transition-all duration-500"></div>
+                </div>
+
+                <div className="flex-1 z-10">
+                  <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 group-hover:text-red-900 mb-1 transition-colors">
+                    PEO {idx + 1}
+                  </h4>
+                  <p className="text-gray-600 text-sm leading-relaxed text-justify text-justify-inter-word">
+                    {b}
+                  </p>
+                </div>
+              </div>
+            ))}
           </div>
         </div>
-
-        {/* Right Side: Racing Light PEO Cards */}
-        <div className="col-span-12 md:col-span-7 space-y-4">
-          {dept.peo.bullets.map((b, idx) => (
-            <div 
-              key={idx} 
-              className="peo-card-racing group flex items-center gap-6 p-6 rounded-[1rem] transition-all duration-300 hover:shadow-lg"
-            >
-              {/* Number Badge */}
-              <div className="relative flex-shrink-0">
-                <div className="w-12 h-12 flex items-center justify-center rounded-full 
-                  bg-red-50 text-red-900 font-bold text-lg 
-                  group-hover:bg-red-900 group-hover:text-white 
-                  group-hover:shadow-[0_0_20px_rgba(153,27,27,0.4)]
-                  transition-all duration-300 z-10 relative">
-                  {idx + 1}
-                </div>
-                
-                {/* Subtle ring that expands on hover */}
-                <div className="absolute inset-0 rounded-full border border-red-900/0 group-hover:border-red-900/20 group-hover:scale-150 transition-all duration-500"></div>
-              </div>
-
-              {/* Text Content */}
-              <div className="flex-1 z-10">
-                <h4 className="text-[10px] font-bold uppercase tracking-[0.3em] text-gray-400 group-hover:text-red-900 mb-1 transition-colors">
-                  PEO {idx + 1}
-                </h4>
-                <p className="text-gray-600 text-sm leading-relaxed text-justify text-justify-inter-word">
-                  {b}
-                </p>
-              </div>
-            </div>
-          ))}
-        </div>
-      </div>
-    </section>
+      </section>
 
       <section id="so" className="max-w-6xl mx-auto px-6 pt-16">
         <SectionTitle center eyebrow={dept.title} title={dept.so.title} subtitle={dept.so.subtitle} />
@@ -255,11 +242,16 @@ export default function EEPage() {
           </div>
         </div>
 
-        {/* CARDS GRID */}
         <p className="text-gray-500 mt-4 italic font-medium text-center">
           Click on a year level to view the specific courses for each semester.
         </p>
+        <p className="text-gray-400 mt-1 font-xs text-center leading-relaxed">
+          Bachelor of Science in Electrical Engineering Curriculum <br />
+          Revised 2024 <br />
+          CMO 88 Series of 2017
+        </p>
         {}
+
         <div className="h-8" />
           <div className="grid grid-cols-2 md:grid-cols-5 gap-4 mb-12">
             {baseDept.curriculum.years.map((year) => (
@@ -288,7 +280,6 @@ export default function EEPage() {
             ))}
           </div>
 
-          {/* DYNAMIC TABLE DISPLAY */}
           {selectedYearId && (
             <div className="bg-gray-50 rounded-[2.5rem] p-8 border border-gray-100 animate-fadeIn">
               {currentYearData?.terms.map((term, tIdx) => (
@@ -303,7 +294,7 @@ export default function EEPage() {
                 <div className="overflow-x-auto bg-white rounded-2xl shadow-sm border border-gray-100">
                   <table className="w-full text-left border-collapse table-fixed">
                     <thead>
-                      <tr className="bg-red-900 text-[10px] uppercase text-white border-b border-gray-100">
+                      <tr className="bg-gray-200 text-[10px] uppercase text-black border-b border-gray-100">
                         <th className="py-4 px-6 font-bold w-28">Code</th>
                         <th className="py-4 px-6 font-bold w-auto">Course Title</th>
                         <th className="py-4 px-2 text-center font-bold w-20">Lab Units</th>
@@ -333,10 +324,10 @@ export default function EEPage() {
                           <td className="py-4 px-2 text-center">{course.lec_units}</td>
                           <td className="py-4 px-2 text-center">{course.lec_hours || 0}</td>
                           <td className="py-4 px-6 text-[10px] whitespace-normal leading-relaxed text-center">
-                            {course.prereq || "None"}
+                            {course.prereq || ""}
                           </td>
                           <td className="py-4 px-6 text-[10px] whitespace-normal leading-relaxed text-center">
-                            {course.coreq || "None"}
+                            {course.coreq || ""}
                           </td>
                         </tr>
                       ))}
@@ -349,18 +340,44 @@ export default function EEPage() {
         )}
       </section>
 
-      <section id="laboratories" className="max-w-6xl mx-auto px-6 pt-16">
-        <SectionTitle center eyebrow={dept.title} title={dept.laboratories.title} subtitle="Department laboratories and learning spaces" />
+      <section id="laboratories" className="max-w-6xl mx-auto px-6 pt-24 pb-16">
+        <SectionTitle 
+          center 
+          eyebrow={dept.title} 
+          title={dept.laboratories.title} 
+          subtitle="State-of-the-art facilities for hands-on engineering education" 
+        />
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-3 gap-8">
           {dept.laboratories.items.map((lab, idx) => (
-            <div key={idx} className="rounded-2xl border bg-white p-6">
-              <div className="text-xs font-semibold text-gray-400">LAB {idx + 1}</div>
-              <div className="mt-2 h-50 rounded-lg overflow-hidden bg-gray-200">
-                <img src={lab.photo} alt={lab.name} className="w-full h-full object-cover" />
+            <div 
+              key={idx} 
+              className="group relative rounded-[2.5rem] border border-red-100 bg-red-50/20 p-5 transition-all duration-500 hover:bg-white hover:shadow-xl hover:-translate-y-2"
+            >
+              <div className="absolute -top-3 left-8 bg-red-900 text-white text-[10px] font-black px-4 py-1 rounded-full shadow-lg z-10">
+                LAB {String(idx + 1).padStart(2, '0')}
               </div>
-              <h3 className="mt-1 font-bold text-gray-900 text-center">{lab.name}</h3>
-              <p className="mt-2 text-sm text-gray-500 text-center">{lab.description}</p>
+
+              <div className="relative h-56 rounded-[1.8rem] overflow-hidden bg-gray-200 border-2 border-white shadow-inner">
+                <img 
+                  src={lab.photo} 
+                  alt={lab.name} 
+                  className="w-full h-full object-cover transition-transform duration-700 group-hover:scale-110" 
+                />
+                <div className="absolute inset-0 bg-red-900/10 opacity-0 group-hover:opacity-900 transition-opacity duration-300" />
+              </div>
+
+              <div className="px-2 pt-6 pb-2">
+                <h3 className="font-black text-red-900 text-lg leading-tight tracking-tight uppercase">
+                  {lab.name}
+                </h3>
+                
+                <div className="w-20 h-1 bg-red-200 my-3 rounded-full group-hover:w-72 transition-all duration-500" />
+                
+                <p className="text-sm text-gray-600 leading-relaxed line-clamp-5 text-justify">
+                  {lab.description}
+                </p>
+              </div>
             </div>
           ))}
         </div>
@@ -419,10 +436,48 @@ export default function EEPage() {
         </div>
       </section>
 
-      <section id="contact" className="max-w-6xl mx-auto px-6 pt-16">
-        <div className="rounded-2xl border bg-gray-50 p-6 md:p-8">
-          <h2 className="text-xl font-bold text-gray-900">Department Contact</h2>
-          <p className="mt-2 text-sm text-gray-600">Add contact details for {dept.title} in this section.</p>
+      <section id="contact" className="max-w-6xl mx-auto px-6 py-20">
+        <div className="rounded-[2.5rem] border border-red-200 bg-red-50/20 p-8 md:p-12 shadow-md">
+          <div className="flex flex-col md:flex-row justify-between items-center gap-12">
+            
+            <div className="flex flex-col items-center md:items-start text-center md:text-left space-y-4">
+              <div className="flex items-center gap-4">
+                <img src="/src/assets/bulsu.svg" alt="BULSU Logo" className="w-16 h-16 object-contain" />
+                <img src="/public/COE.svg" alt="COE Logo" className="w-16 h-16 object-contain" />
+                <img src="/public/departments/EE/ee-logo.png" alt="EE Logo" className="w-16 h-16 object-contain" />
+                <img src="/public/departments/EE/watermark.png" alt="IIEE Logo" className="w-16 h-16 object-contain" />
+                </div>
+              
+              <div>
+                <h2 className="text-red-900 font-black text-xl tracking-tight leading-tight">
+                  College of Engineering
+                </h2>
+                <p className="text-gray-700 font-bold text-lg">
+                  Electrical Engineering Department
+                </p>
+                <p className="text-gray-500 text-sm font-medium uppercase tracking-widest mt-1">
+                  Bulacan State University
+                </p>
+              </div>
+            </div>
+
+            <div className="w-full md:w-px h-px md:h-32 bg-red-900/50"></div>
+            <div className="flex flex-col items-center md:items-end text-center md:text-right">
+              <span className="inline-block text-[15px] font-bold text-gray-800 uppercase tracking-[0.2em] mb-6 bg-gray-200 px-3 py-1 rounded-full">
+                Department Head
+              </span>
+              <h3 className="text-2xl font-black text-red-900 leading-none mb-1">
+                Engr. Eleazer C. Nabong
+              </h3>
+              <a 
+                href="mailto:eleazar.nabong@ms.bulsu.edu.ph" 
+                className="text-gray-500 font-medium hover:text-red-800 transition-colors flex items-center gap-2 group"
+              >
+                eleazar.nabong@ms.bulsu.edu.ph
+                <span className="group-hover:translate-x-1 transition-transform">→</span>
+              </a>
+            </div>
+          </div>
         </div>
       </section>
 
