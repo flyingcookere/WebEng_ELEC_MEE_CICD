@@ -1,6 +1,7 @@
 import { useEffect, useMemo, useState } from "react";
 import { Link } from "react-router-dom";
 import { ChevronLeft, ChevronRight, DraftingCompass, Cpu } from "lucide-react";
+import { CircuitBackground } from "../departments/CPE/Components/CircuitBackground.tsx"
 // 1. Updated Import
 import CPEnavbar from "../../components/CPEnavbar";
 import SectionTitle from "../../components/SectionTitle";
@@ -174,106 +175,125 @@ export default function CPEPage() {
       {/* --- ABOUT SECTION --- */}
       <section
         id="about"
-        className="w-full bg-slate-950 py-24 my-10 border-y-4 border-yellow-400"
+        className="w-full bg-slate-950 py-24 border-y-2 border-slate-900"
       >
         <div className="max-w-6xl mx-auto px-6">
           {/* 1. PRIMARY PROGRAM OVERVIEW (Large Format) */}
           <div className="mb-20">
-            <div className="text-xs font-bold tracking-[0.3em] text-yellow-400 uppercase mb-4">
+            <div className="text-xs font-bold tracking-[0.3em] text-yellow-500 uppercase mb-4">
               {dept.programOverview.heading}
             </div>
             <h2 className="text-5xl md:text-7xl font-black text-white leading-[0.95] tracking-tighter uppercase mb-8">
               The Future of <br />
-              <span className="text-yellow-400">Computer Engineering</span>
+              <span className="text-transparent bg-clip-text bg-gradient-to-r from-yellow-400 to-yellow-600">
+                Computer Engineering
+              </span>
             </h2>
             <p className="text-lg md:text-xl text-slate-300 leading-relaxed max-w-4xl font-medium">
               {dept.programOverview.text}
             </p>
           </div>
 
-          {/* 2. MISSION & VISION (Separate Section Holders) */}
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 border-t border-slate-800 pt-16">
-            <div className="relative group">
-              <div className="absolute -left-4 top-0 h-full w-1 bg-yellow-400 opacity-50 group-hover:opacity-100 transition-opacity" />
-              <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-4">
+          {/* 2. MISSION & VISION */}
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-12 mb-20 border-t border-slate-800/50 pt-16">
+            <div className="relative group cursor-default">
+              {/* Animated Accent Line */}
+              <div className="absolute -left-4 top-0 h-full w-1 bg-yellow-500 opacity-30 group-hover:opacity-100 group-hover:shadow-[0_0_15px_rgba(234,179,8,0.6)] transition-all duration-500 rounded-full" />
+              <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-4 group-hover:text-yellow-400 transition-colors duration-300">
                 Our Mission
               </h3>
               <p className="text-slate-400 text-base leading-relaxed">
-                {/* Ensure dept.mission is defined in your CPE.ts */}
                 {dept.programOverview.mission ||
                   "To provide high-quality instruction and research-driven education in the field of Computer Engineering."}
               </p>
             </div>
 
-            <div className="relative group">
-              <div className="absolute -left-4 top-0 h-full w-1 bg-yellow-400 opacity-50 group-hover:opacity-100 transition-opacity" />
-              <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-4">
+            <div className="relative group cursor-default">
+              {/* Animated Accent Line */}
+              <div className="absolute -left-4 top-0 h-full w-1 bg-yellow-500 opacity-30 group-hover:opacity-100 group-hover:shadow-[0_0_15px_rgba(234,179,8,0.6)] transition-all duration-500 rounded-full" />
+              <h3 className="text-2xl font-black text-white uppercase tracking-tight mb-4 group-hover:text-yellow-400 transition-colors duration-300">
                 Our Vision
               </h3>
               <p className="text-slate-400 text-base leading-relaxed">
-                {/* Ensure dept.vision is defined in your CPE.ts */}
                 {dept.programOverview.vision ||
                   "A leading center of excellence recognized for producing innovative and globally competitive computer engineers."}
               </p>
             </div>
           </div>
 
-          {/* 3. --- PROGRAM SIGNALS (Contextual Cards) --- */}
+          {/* 3. --- PROGRAM SIGNALS (Animated Cards) --- */}
           <div className="grid grid-cols-1 lg:grid-cols-3 gap-6 mb-20">
             {/* Regulatory Context */}
-            <div className="bg-slate-900 border border-slate-800 p-8 rounded-[2rem] hover:border-yellow-400/50 transition-colors">
-              <p className="text-[10px] font-black text-yellow-400 uppercase tracking-widest mb-4">
-                Regulatory Basis
-              </p>
-              <h4 className="text-xl font-black text-white leading-tight mb-2 uppercase">
-                CHED Compliant
-              </h4>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                Fully aligned with <strong>CMO No. 87, s. 2017</strong>,
-                ensuring a curriculum that meets international standards for
-                21st-century engineering education.
-              </p>
+            <div className="group relative flex flex-col justify-between bg-slate-900/50 border-2 border-slate-800 p-8 rounded-[2rem] transition-all duration-300 hover:-translate-y-3 hover:border-yellow-500 hover:bg-slate-900 hover:shadow-[0_15px_40px_-10px_rgba(234,179,8,0.2)] overflow-hidden cursor-pointer">
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div>
+                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4 transition-colors duration-300 group-hover:text-yellow-400">
+                  Regulatory Signal
+                </p>
+                <h4 className="text-xl font-black text-white leading-tight mb-3 uppercase">
+                  CHED Compliant
+                </h4>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  Fully aligned with{" "}
+                  <strong className="text-slate-200">
+                    CMO No. 87, s. 2017
+                  </strong>
+                  , ensuring a curriculum that meets international standards for
+                  21st-century engineering education.
+                </p>
+              </div>
             </div>
 
-            {/* Admission Standard */}
-            <div className="bg-yellow-400 p-8 rounded-[2rem] text-slate-950 shadow-xl shadow-yellow-400/10">
-              <p className="text-[10px] font-black uppercase tracking-widest mb-4">
-                Admission Signal
-              </p>
-              <h4 className="text-xl font-black leading-tight mb-2 uppercase">
-                Academic Rigor
-              </h4>
-              <p className="text-sm font-medium leading-relaxed">
-                Entry requires a high-tier scholastic standing, prioritizing{" "}
-                <strong>STEM track</strong> graduates with specialized
-                performance in advanced mathematics and physics.
-              </p>
+            {/* Admission Standard (Highlighted Center Card) */}
+            <div className="group relative flex flex-col justify-between bg-slate-900 border-2 border-yellow-500/40 p-8 rounded-[2rem] transition-all duration-300 hover:-translate-y-3 hover:border-yellow-400 hover:shadow-[0_15px_40px_-10px_rgba(234,179,8,0.3)] overflow-hidden cursor-pointer">
+              {/* Permanent top glow that gets brighter on hover */}
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent opacity-60 transition-opacity duration-500 group-hover:opacity-100" />
+              <div>
+                <p className="text-[10px] font-black text-yellow-500 uppercase tracking-widest mb-4">
+                  Admission Signal
+                </p>
+                <h4 className="text-xl font-black text-white leading-tight mb-3 uppercase">
+                  Academic Rigor
+                </h4>
+                <p className="text-sm text-slate-300 leading-relaxed">
+                  Entry requires a high-tier scholastic standing, prioritizing{" "}
+                  <strong className="text-white">STEM track</strong> graduates
+                  with specialized performance in advanced mathematics and
+                  physics.
+                </p>
+              </div>
             </div>
 
             {/* Industry Linkage */}
-            <div className="bg-slate-900 border border-slate-800 p-8 rounded-[2rem] hover:border-yellow-400/50 transition-colors">
-              <p className="text-[10px] font-black text-yellow-400 uppercase tracking-widest mb-4">
-                Industry Signal
-              </p>
-              <h4 className="text-xl font-black text-white leading-tight mb-2 uppercase">
-                Career Readiness
-              </h4>
-              <p className="text-sm text-slate-400 leading-relaxed">
-                Facilitated through the <strong>BulSU CarDSI Office</strong>,
-                bridging students to internships in high-tech firms across the
-                region and Metro Manila.
-              </p>
+            <div className="group relative flex flex-col justify-between bg-slate-900/50 border-2 border-slate-800 p-8 rounded-[2rem] transition-all duration-300 hover:-translate-y-3 hover:border-yellow-500 hover:bg-slate-900 hover:shadow-[0_15px_40px_-10px_rgba(234,179,8,0.2)] overflow-hidden cursor-pointer">
+              <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-yellow-400 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+              <div>
+                <p className="text-[10px] font-black text-slate-500 uppercase tracking-widest mb-4 transition-colors duration-300 group-hover:text-yellow-400">
+                  Industry Signal
+                </p>
+                <h4 className="text-xl font-black text-white leading-tight mb-3 uppercase">
+                  Career Readiness
+                </h4>
+                <p className="text-sm text-slate-400 leading-relaxed">
+                  Facilitated through the{" "}
+                  <strong className="text-slate-200">
+                    BulSU CarDSI Office
+                  </strong>
+                  , bridging students to internships in high-tech firms across
+                  the region and Metro Manila.
+                </p>
+              </div>
             </div>
           </div>
 
-          {/* 4. DYNAMIC STATS GRID (Mapped from the array in CPE.ts) */}
-          <div className="grid grid-cols-1 md:grid-flow-col md:auto-cols-fr border border-slate-800 rounded-3xl overflow-hidden shadow-2xl shadow-yellow-400/5">
+          {/* 4. DYNAMIC STATS GRID */}
+          <div className="grid grid-cols-1 md:grid-flow-col md:auto-cols-fr border-2 border-slate-800 bg-slate-900/30 rounded-3xl overflow-hidden shadow-2xl shadow-yellow-500/5">
             {dept.programOverview.stats.map((stat: any, idx: number) => (
               <Stat
                 key={idx}
                 value={stat.value}
                 label={stat.label}
-                accentHex={stat.highlight ? "#facc15" : "#94a3b8"}
+                accentHex={stat.highlight ? "#eab308" : "#64748b"}
               />
             ))}
           </div>
@@ -490,38 +510,54 @@ export default function CPEPage() {
       </section>
 
       {/* --- CURRICULUM SECTION --- */}
-      <section id="curriculum" className="max-w-6xl mx-auto px-6 pt-16">
-        <div className="grid grid-cols-12 gap-8 items-start">
-          <div className="col-span-12 md:col-span-6">
-            <div className="text-xs font-semibold text-gray-400 tracking-wide">
-              TAKE A TOUR
+      <section
+        id="curriculum"
+        className="relative w-full bg-slate-950 py-24 overflow-hidden border-t border-slate-900"
+      >
+        {/* 1. Inject the new Circuit Background Here */}
+        <CircuitBackground />
+
+        {/* Existing Background glow effect to boost the tech feel */}
+        <div className="absolute top-0 left-1/2 -translate-x-1/2 w-full h-[500px] bg-blue-900/20 blur-[120px] rounded-full pointer-events-none z-0" />
+
+        {/* 2. Ensure content wrapper is relative z-10 */}
+        <div className="relative z-10 max-w-6xl mx-auto px-6 grid grid-cols-1 md:grid-cols-12 gap-12 items-center">
+          <div className="md:col-span-6 space-y-6">
+            <div className="text-sm font-bold text-yellow-500 tracking-[0.2em] uppercase drop-shadow-md">
+              Take a Tour
             </div>
-            <h2 className="mt-2 text-3xl font-extrabold text-gray-900">
+            <h2 className="text-4xl md:text-5xl font-extrabold text-white tracking-tight">
               {dept.curriculum.title}
             </h2>
-            <p className="mt-3 text-sm text-gray-500 leading-relaxed">
+            <p className="text-base text-slate-300 leading-relaxed bg-slate-950/50 p-4 rounded-xl backdrop-blur-sm border border-slate-800">
               {dept.curriculum.text}
             </p>
 
-            <ul className="mt-6 space-y-3 text-sm text-gray-600">
+            <ul className="mt-8 space-y-4 text-sm text-slate-200">
               {dept.curriculum.bullets.map((b, idx) => (
-                <li key={idx} className="flex items-center gap-2">
-                  <span
-                    className="w-2 h-2 rounded-full"
-                    style={{ backgroundColor: dept.theme.accentHex }}
-                  />
-                  {b}
+                <li
+                  key={idx}
+                  className="group flex items-start gap-4 p-3 rounded-lg bg-slate-950/60 backdrop-blur-sm border border-transparent hover:border-slate-700 transition-all duration-300"
+                >
+                  <div className="relative mt-1 flex h-4 w-4 shrink-0 items-center justify-center">
+                    <span className="absolute h-full w-full rounded-full bg-yellow-500/20 opacity-0 group-hover:opacity-100 group-hover:animate-ping transition-opacity duration-300" />
+                    <span className="relative h-2 w-2 rounded-full bg-yellow-500 shadow-[0_0_8px_rgba(234,179,8,0.8)]" />
+                  </div>
+                  <span className="leading-relaxed group-hover:text-white transition-colors duration-300">
+                    {b}
+                  </span>
                 </li>
               ))}
             </ul>
           </div>
 
-          <div className="col-span-12 md:col-span-6">
-            <div className="h-[360px] md:h-[420px] rounded-2xl bg-gray-50 border flex items-center justify-center overflow-hidden">
+          <div className="md:col-span-6">
+            <div className="group relative h-[400px] md:h-[480px] w-full rounded-3xl bg-slate-900/60 border border-blue-500/30 flex items-center justify-center overflow-hidden backdrop-blur-md transition-all duration-500 hover:border-yellow-500/80 hover:bg-slate-900/80 hover:shadow-[0_0_50px_rgba(59,130,246,0.2)] cursor-pointer">
+              <div className="absolute inset-0 bg-gradient-to-tr from-blue-600/10 to-yellow-500/10 opacity-0 group-hover:opacity-100 transition-opacity duration-700" />
               <img
                 src={dept.images.watermark}
-                alt=""
-                className="w-[420px] md:w-[520px] opacity-20 select-none"
+                alt="Curriculum Overview Graphic"
+                className="relative z-10 w-[280px] md:w-[380px] opacity-40 transition-all duration-700 ease-out group-hover:scale-110 group-hover:opacity-80 drop-shadow-[0_0_25px_rgba(59,130,246,0.4)]"
               />
             </div>
           </div>
@@ -529,40 +565,109 @@ export default function CPEPage() {
       </section>
 
       {/* --- LABORATORIES SECTION --- */}
-      <section id="laboratories" className="max-w-6xl mx-auto px-6 pt-16">
-        <SectionTitle
-          center
-          eyebrow={dept.title}
-          title={dept.laboratories.title}
-          subtitle="Department laboratories and learning spaces"
-        />
+      <section
+        id="laboratories"
+        className="relative w-full bg-slate-950 py-24 overflow-hidden border-t border-slate-900"
+      >
+        {/* Apply the background here as well to make it continuous */}
+        <CircuitBackground />
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
-          {dept.laboratories.items.map((lab, idx) => (
-            <div key={idx} className="rounded-2xl border bg-white p-6">
-              <div className="text-xs font-semibold text-gray-400">
-                LAB {idx + 1}
+        <div className="relative z-10 max-w-6xl mx-auto px-6">
+          <div className="text-yellow-500 [&_h2]:text-white [&_p]:text-slate-300 bg-slate-950/40 inline-block px-8 py-4 rounded-2xl backdrop-blur-sm border border-slate-800/50 mb-8">
+            <SectionTitle
+              center
+              eyebrow={dept.title}
+              title={dept.laboratories.title}
+              subtitle="Department laboratories and learning spaces"
+            />
+          </div>
+
+          <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+            {dept.laboratories.items.map((lab, idx) => (
+              <div
+                key={idx}
+                className="group relative flex flex-col justify-between rounded-2xl border-2 border-slate-700 bg-slate-900/80 backdrop-blur-md p-8 transition-all duration-300 hover:-translate-y-3 hover:border-blue-400 hover:bg-slate-900 hover:shadow-[0_15px_40px_-10px_rgba(59,130,246,0.3)] overflow-hidden cursor-pointer"
+              >
+                <div className="absolute top-0 left-0 w-full h-1 bg-gradient-to-r from-transparent via-blue-400 to-transparent opacity-0 transition-opacity duration-500 group-hover:opacity-100" />
+
+                <div>
+                  <div className="text-xs font-bold text-slate-400 tracking-[0.15em] transition-colors duration-300 group-hover:text-blue-400">
+                    LAB 0{idx + 1}
+                  </div>
+                  <h3 className="mt-3 text-xl font-bold text-white transition-colors duration-300">
+                    {lab}
+                  </h3>
+                </div>
+
+                <div className="mt-8 flex items-center text-slate-500 transition-colors duration-300 group-hover:text-yellow-500">
+                  <span className="text-sm font-semibold uppercase tracking-wider">
+                    Explore Facility
+                  </span>
+                  <svg
+                    className="w-5 h-5 ml-2 transform transition-all duration-300 opacity-0 -translate-x-4 group-hover:opacity-100 group-hover:translate-x-0"
+                    fill="none"
+                    viewBox="0 0 24 24"
+                    stroke="currentColor"
+                  >
+                    <path
+                      strokeLinecap="round"
+                      strokeLinejoin="round"
+                      strokeWidth={2}
+                      d="M17 8l4 4m0 0l-4 4m4-4H3"
+                    />
+                  </svg>
+                </div>
               </div>
-              <h3 className="mt-2 text-base font-bold text-gray-900">{lab}</h3>
-            </div>
-          ))}
+            ))}
+          </div>
         </div>
       </section>
-
       {/* --- FACULTY SECTION --- */}
-      <section id="faculty" className="max-w-6xl mx-auto px-6 pt-16">
-        <SectionTitle center eyebrow={dept.title} title={dept.faculty.title} />
+      <section
+        id="faculty"
+        className="relative w-full bg-slate-950 py-20 overflow-hidden"
+      >
+        {/* Decorative Background Grid (Mimics the tech/circuit vibe) */}
+        <div className="absolute inset-0 bg-[linear-gradient(to_right,#1e293b_1px,transparent_1px),linear-gradient(to_bottom,#1e293b_1px,transparent_1px)] bg-[size:4rem_4rem] [mask-image:radial-gradient(ellipse_60%_60%_at_50%_50%,#000_70%,transparent_100%)] opacity-30" />
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-2 gap-5">
-          {dept.faculty.members.map((member, idx) => (
-            <div
-              key={`${member.name}-${idx}`}
-              className="rounded-2xl border bg-white p-6"
-            >
-              <h3 className="font-bold text-gray-900">{member.name}</h3>
-              <p className="mt-1 text-sm text-gray-600">{member.role}</p>
-            </div>
-          ))}
+        <div className="relative z-10 max-w-6xl mx-auto px-6">
+          {/* Wrapped in a div to ensure any inherited text color for the title becomes yellow/light */}
+          <div className="text-yellow-500 [&_h2]:text-white">
+            <SectionTitle
+              center
+              eyebrow={dept.title}
+              title={dept.faculty.title}
+            />
+          </div>
+
+          <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-8">
+            {dept.faculty.members.map((member, idx) => (
+              <div
+                key={`${member.name}-${idx}`}
+                className="flex items-center gap-6 rounded-2xl border-2 border-yellow-500 bg-slate-900/80 backdrop-blur-sm p-6 shadow-[0_0_15px_rgba(234,179,8,0.15)] transition-all duration-300 hover:-translate-y-1 hover:shadow-[0_0_25px_rgba(234,179,8,0.3)]"
+              >
+                {/* Portrait Placeholder - Updated to have a matching yellow border */}
+                <div className="h-20 w-20 shrink-0 overflow-hidden rounded-full border-2 border-yellow-500 bg-slate-800">
+                  {/* Replace the src with your actual dynamic image path */}
+                  <img
+                    src="/api/placeholder/80/80"
+                    alt={`${member.name} portrait`}
+                    className="h-full w-full object-cover"
+                  />
+                </div>
+
+                {/* Text Content - Updated for Dark Mode Readability */}
+                <div>
+                  <h3 className="text-xl font-bold text-yellow-400 uppercase tracking-tight">
+                    {member.name}
+                  </h3>
+                  <p className="mt-1 text-sm font-semibold text-slate-300 uppercase tracking-wider">
+                    {member.role}
+                  </p>
+                </div>
+              </div>
+            ))}
+          </div>
         </div>
       </section>
 

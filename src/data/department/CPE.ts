@@ -123,6 +123,7 @@ export const CPE = {
       { name: "Dr. Ma. Magdalena V. Gatdula", role: "University Registrar, Faculty" },
       { name: "Dr. Monaliza S. Jimenez", role: "Faculty" },
       { name: "Engr. Julius Vincent M. Abanel ", role: "Part-Time Instructor, Faculty" },
+      { name: "Engr. Arlyne De Jesus ", role: "Part-Time Instructor, Faculty" },
       { name: "Engr. Hiroyoshi  DG. Arai", role: "Part-Time Instructor, Faculty" },
       { name: "Engr. Robert Justin S. Chavez", role: "Faculty" },
       { name: "Engr. Albert C. Cruz Jr.", role: "Part-Time Instructor, Faculty" },
