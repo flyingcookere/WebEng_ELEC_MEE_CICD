@@ -50,16 +50,16 @@ export default function Footer() {
                 <div className="w-full h-px bg-yellow-400"></div>
 
                 {/* HEADER WITH LOGO LEFT AND BACK TO TOP RIGHT */}
-                <div className="w-full py-4 flex items-center justify-between px-6" style={{ backgroundColor: "#8B1A1A" }}>
-                    <div className="flex items-center gap-3">
+                <div className="w-full py-8 flex items-center justify-between px-6" style={{ backgroundColor: "#8B1A1A" }}>
+                    <div className="flex items-start gap-4 flex-1">
                         <img
                             src={bulsuLogo}
                             alt="BULSU"
-                            className="w-10 h-10"
+                            className="w-12 h-12 flex-shrink-0"
                         />
                         <div>
-                            <p className="text-xs text-yellow-400 font-semibold">Bulacan State University</p>
-                            <p className="text-sm font-bold text-white">College of Engineering</p>
+                            <p className="text-sm font-bold text-yellow-300">BULSU COE</p>
+                            <p className="text-xs text-white mt-1 leading-relaxed max-w-xs">{footerData.slogan}</p>
                         </div>
                     </div>
                     

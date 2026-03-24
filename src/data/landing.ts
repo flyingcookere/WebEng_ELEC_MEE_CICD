@@ -69,6 +69,7 @@ export const landingPageData = {
       phone: "(044) 919 7800",
       email: "engineering@bulsu.edu.ph",
       address: "Bulacan State University, Engineering Building, Malolos City",
+      slogan: "Leading the way in engineering excellence and innovation for a better tomorrow.",
       socialLinks: [
         { label: "Facebook", href: "https://facebook.com/bulsu.coe", icon: "facebook" },
       ],
