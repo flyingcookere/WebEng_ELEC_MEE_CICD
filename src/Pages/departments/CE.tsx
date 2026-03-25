@@ -6,7 +6,6 @@ import { mergeDeptWithOverrides } from "../../lib/departmentAdmin";
 import { CE } from "../../data/department/CE";
 import CEIcon from "../../assets/CEicon.svg";
 import "../../styles/departments/CE.css";
-import type { NavId } from "../../types/CEnav";
 
 function FadeInSection({ children, className = "", delay = "" }: { children: ReactNode, className?: string, delay?: string }) {
   const [isVisible, setVisible] = useState(false);
@@ -926,25 +925,6 @@ export default function CEPage() {
         title="Organizational Charts"
         eyebrow="Department Hierarchy"
       />
-    </div>
-  );
-}
-
-function Stat({
-  value,
-  label,
-  color,
-}: {
-  value: number;
-  label: string;
-  color: string;
-}) {
-  return (
-    <div className="text-center md:text-left group">
-      <div className="text-5xl font-black transition-transform group-hover:scale-110" style={{ color }}>
-        {value}+
-      </div>
-      <div className="mt-3 text-xs font-black text-gray-400 uppercase tracking-[0.2em] group-hover:ce-text-gold transition-colors">{label}</div>
     </div>
   );
 }
