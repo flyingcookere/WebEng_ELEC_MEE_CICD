@@ -53,8 +53,15 @@ export default function MEEPage() {
         </div>
 
 <div className="mt-8 grid grid-cols-12 gap-5">
-  <div className="col-span-12 md:col-span-4">
-    <div className="group h-[380px] md:h-[620px] rounded-2xl overflow-hidden bg-gray-200 
+
+  {/* LEFT BIG */}
+  <a 
+    href="https://www.facebook.com/photo?fbid=3604494319879176&set=a.750132340243852"
+    target="_blank"
+    rel="noopener noreferrer"
+    className="block col-span-12 md:col-span-4"
+  >
+    <div className="group h-[380px] md:h-[670px] rounded-2xl overflow-hidden bg-gray-200 
                     transition-all duration-500 ease-out 
                     hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
 
@@ -67,17 +74,23 @@ export default function MEEPage() {
                      group-hover:scale-110"
         />
 
-        {/* gradient overlay */}
         <div className="absolute inset-0 bg-black/10 
                         opacity-0 group-hover:opacity-100 
                         transition duration-500"></div>
       </div>
     </div>
-  </div>
+  </a>
+
 
   <div className="col-span-12 md:col-span-8 grid grid-cols-12 gap-5">
     
-    <div className="col-span-12">
+    {/* TOP BIG */}
+    <a 
+      href="https://www.facebook.com/photo/?fbid=1263589322231482&set=a.750132360243850"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block col-span-12"
+    >
       <div className="group h-[300px] rounded-2xl overflow-hidden bg-gray-200 
                       transition-all duration-500 ease-out 
                       hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
@@ -95,10 +108,17 @@ export default function MEEPage() {
                           transition duration-500"></div>
         </div>
       </div>
-    </div>
+    </a>
 
-    <div className="col-span-12 md:col-span-6">
-      <div className="group h-[300px] rounded-2xl overflow-hidden bg-gray-200 
+
+    {/* SMALL 1 */}
+    <a 
+      href="https://www.facebook.com/AIMEESBulSU/posts/pfbid0QBMLNdvqEusEnLRtnMp6d5jxH2NGUHKFcPr7BGNu2ii6W3wUGATKcNa4po2ScTZQl?rdid=HBuJMuAqSMrBdxxk#"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block col-span-12 md:col-span-6"
+    >
+      <div className="group h-[350px] rounded-2xl overflow-hidden bg-gray-200 
                       transition-all duration-500 ease-out 
                       hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
         
@@ -115,10 +135,17 @@ export default function MEEPage() {
                           transition duration-500"></div>
         </div>
       </div>
-    </div>
+    </a>
 
-    <div className="col-span-12 md:col-span-6">
-      <div className="group h-[300px] rounded-2xl overflow-hidden bg-gray-200 
+
+    {/* SMALL 2 */}
+    <a 
+      href="https://www.facebook.com/AIMEESBulSU/posts/pfbid02ijHers3CGTgvyKqmZkGb1X7XDtdX6uhnTX3J8hCWgEYbuXzUhY2eGnktoXpjJUaHl?rdid=MeGMAnY0orEaeqMi#"
+      target="_blank"
+      rel="noopener noreferrer"
+      className="block col-span-12 md:col-span-6"
+    >
+      <div className="group h-[350px] rounded-2xl overflow-hidden bg-gray-200 
                       transition-all duration-500 ease-out 
                       hover:-translate-y-2 hover:shadow-2xl cursor-pointer">
         
@@ -135,7 +162,7 @@ export default function MEEPage() {
                           transition duration-500"></div>
         </div>
       </div>
-    </div>
+    </a>
 
   </div>
 </div>
