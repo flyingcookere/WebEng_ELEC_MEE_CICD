@@ -252,7 +252,7 @@ export default function MFEPage() {
                 <div className="relative w-48 h-48 md:w-64 md:h-64 rounded-[2.5rem] bg-white border border-slate-100 shadow-sm p-10 flex items-center justify-center transition-all duration-500 group-hover:border-black group-hover:shadow-2xl">
                   <img 
                     src={dept.images.watermark} 
-                    className="w-full h-full object-contain grayscale opacity-60 group-hover:opacity-100 group-hover:scale-110 group-hover:rotate-3 transition-all duration-1000" 
+                    className="w-full h-full object-contain opacity-60 group-hover:opacity-100 group-hover:scale-110 group-hover:rotate-3 transition-all duration-1000" 
                     alt={dept.code} 
                   />
                   <div className="absolute bottom-6 right-6 opacity-0 group-hover:opacity-100 transition-opacity duration-500">
