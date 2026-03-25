@@ -214,19 +214,19 @@ export const MEE = {
       "Graduates may pursue roles in automation, robotics, manufacturing, and embedded systems development.",
     cards: [
       {
-        icon: "🤖",
+        icon: "Cpu",
         title: "Robotics Engineer",
         text:
           "Design and develop robotic systems, motion control, and automation solutions.",
       },
       {
-        icon: "⚙️",
+        icon: "Cog",
         title: "Automation / Controls Engineer",
         text:
           "Implement PLC/SCADA systems, control strategies, instrumentation, and industrial automation.",
       },
       {
-        icon: "🧠",
+        icon: "Wrench",
         title: "Embedded Systems Engineer",
         text:
           "Develop firmware and hardware integrations using sensors, microcontrollers, and IoT technologies.",

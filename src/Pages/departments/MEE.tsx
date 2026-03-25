@@ -48,7 +48,7 @@ export default function MEEPage() {
   };
 
   return (
-    <div className="bg-white">
+    <div className="bg-[#e8eff3]">
       <Navbar onNav={onNav} />
 
       <section id="home" className="max-w-6xl mx-auto px-6 pt-10">
@@ -187,43 +187,43 @@ export default function MEEPage() {
 
       <section id="about" className="max-w-6xl mx-auto px-6 pt-10">
         <div className="mt-12 max-w-[1100px]">
-  <div className="text-[25px] font-semibold text-gray-900 tracking-wide">
-    {dept.programOverview.heading}
-  </div>
+          <div className="text-[25px] font-semibold text-gray-900 tracking-wide">
+            {dept.programOverview.heading}
+          </div>
 
-  <p className="mt-4 text-[18px] text-gray-600 leading-9 text-justify">
-    {dept.programOverview.text}
-  </p>
-</div>
+          <p className="mt-4 text-md text-gray-800 leading-9 text-justify">
+            {dept.programOverview.text}
+          </p>
+        </div>
 
-<div className="mt-14 grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
-  <div className="scale-150">
-    <Stat
-      value={dept.programOverview.stats.nonTeaching}
-      label="Non-Teaching Personnel"
-      accentHex={dept.theme.accentHex}
-    />
-  </div>
+        <div className="mt-18 grid grid-cols-1 md:grid-cols-3 gap-10 text-center">
+          <div className="scale-150">
+            <Stat
+              value={dept.programOverview.stats.nonTeaching}
+              label="Non-Teaching Personnel"
+              accentHex={dept.theme.accentHex}
+            />
+          </div>
 
-  <div className="scale-150">
-    <Stat
-      value={dept.programOverview.stats.faculty}
-      label="Faculty"
-      accentHex={dept.theme.accentHex}
-    />
-  </div>
+          <div className="scale-150">
+            <Stat
+              value={dept.programOverview.stats.faculty}
+              label="Faculty"
+              accentHex={dept.theme.accentHex}
+            />
+          </div>
 
-  <div className="scale-150">
-    <Stat
-      value={dept.programOverview.stats.students}
-      label="Enrolled Students"
-      accentHex={dept.theme.accentHex}
-    />
-  </div>
-</div>
+          <div className="scale-150">
+            <Stat
+              value={dept.programOverview.stats.students}
+              label="Enrolled Students"
+              accentHex={dept.theme.accentHex}
+            />
+          </div>
+        </div>
       </section>
 
-      <section id="peo" className="max-w-6xl mx-auto px-6 pt-16">
+      <section id="peo" className="mt-10 max-w-6xl mx-auto px-6 pt-16">
         <SectionTitle
           center
           eyebrow={dept.title}
@@ -252,7 +252,7 @@ export default function MEEPage() {
         </div>
       </section>
 
-      <section id="so" className="max-w-6xl mx-auto px-6 pt-16">
+      <section id="so" className="mt-10 max-w-6xl mx-auto px-6 pt-16">
         <SectionTitle
           center
           eyebrow={dept.title}
@@ -272,96 +272,92 @@ export default function MEEPage() {
         </div>
       </section>
 
-<section id="curriculum" className="max-w-6xl mx-auto px-6 pt-16">
-  <div className="grid grid-cols-12 gap-8 items-stretch">
-    <div className="col-span-12 md:col-span-6">
-      <div className="text-xs font-semibold text-gray-400 tracking-wide">
-        TAKE A TOUR
-      </div>
+      <section id="curriculum" className="mt-10 max-w-6xl mx-auto px-6 pt-16">
+        <div className="grid grid-cols-12 gap-8 items-stretch">
+          <div className="col-span-12 md:col-span-6">
+            <div className="text-xs font-semibold text-gray-400 tracking-wide">
+              TAKE A TOUR
+            </div>
 
-      <h2 className="mt-2 text-3xl font-extrabold text-gray-900">
-        {dept.curriculum.title}
-      </h2>
+            <h2 className="mt-2 text-3xl font-extrabold text-gray-900">
+              {dept.curriculum.title}
+            </h2>
 
-      {"subtitle" in dept.curriculum && dept.curriculum.subtitle && (
-        <p className="mt-2 text-sm font-medium text-gray-700">
-          {dept.curriculum.subtitle}
-        </p>
-      )}
+            {"subtitle" in dept.curriculum && dept.curriculum.subtitle && (
+              <p className="mt-2 text-sm font-medium text-gray-700">
+                {dept.curriculum.subtitle}
+              </p>
+            )}
 
-      <p className="mt-3 text-sm text-gray-500 leading-relaxed">
-        {dept.curriculum.text}
-      </p>
-
-      {"structure" in dept.curriculum && dept.curriculum.structure && (
-        <p className="mt-3 text-sm text-gray-500 leading-relaxed">
-          {dept.curriculum.structure}
-        </p>
-      )}
-    </div>
-
-    <div className="col-span-12 md:col-span-6 flex">
-      <div className="w-full flex items-center justify-center">
-        <img
-          src={dept.images.watermark}
-          alt=""
-          className="w-[85%] md:w-[90%] object-contain select-none"
-        />
-      </div>
-    </div>
-  </div>
-
-  <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
-    {dept.curriculum.years.map((year, idx) => (
-      <div
-        key={idx}
-        className="group relative rounded-2xl border border-gray-200 bg-white p-6 shadow-sm 
-                   transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
-      >
-        {/* BACKGROUND LAYER */}
-        <div
-          className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 rounded-2xl"
-          style={{ backgroundColor: "#1c638b" }}
-        />
-
-        {/* CONTENT */}
-        <div className="relative z-10">
-          <div className="flex items-center justify-between">
-            <h3 className="text-xl font-semibold text-gray-900 transition group-hover:text-white">
-              {year.title}
-            </h3>
-            <span className="h-3 w-3 rounded-full bg-[#1c638b] transition group-hover:bg-white" />
-          </div>
-
-          <p className="mt-2 text-sm text-gray-400 transition group-hover:text-blue-100">
-            Hover to view details
-          </p>
-
-          <div className="mt-4 h-px bg-gray-100 transition group-hover:bg-white/30" />
-
-          <div className="mt-4 max-h-0 overflow-hidden opacity-0 transition-all duration-500 group-hover:max-h-96 group-hover:opacity-100">
-            <p className="text-sm text-gray-600 transition group-hover:text-blue-100">
-              {year.description}
+            <p className="mt-6 text-lg text-gray-700 leading-relaxed text-justify">
+              {dept.curriculum.text}
             </p>
 
-            <ul className="mt-3 space-y-2 text-sm text-gray-600">
-              {year.bullets.map((b, i) => (
-                <li key={i} className="flex items-start gap-2">
-                  <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#1c638b] group-hover:bg-white" />
-                  <span className="transition group-hover:text-white">
-                    {b}
-                  </span>
-                </li>
-              ))}
-            </ul>
+            {"structure" in dept.curriculum && dept.curriculum.structure && (
+              <p className="mt-3 text-lg text-gray-700 leading-relaxed text-justify ">
+                {dept.curriculum.structure}
+              </p>
+            )}
+          </div>
+
+          <div className="mt-6 col-span-12 md:col-span-6 flex">
+            <div className="w-full flex items-center justify-center">
+              <img
+                src={dept.images.watermark}
+                alt=""
+                className="w-[80%] md:w-[80%] object-contain select-none"
+              />
+            </div>
           </div>
         </div>
-      </div>
-    ))}
-  </div>
-</section>
 
-      <section id="laboratories" className="max-w-6xl mx-auto px-6 pt-16">
+        <div className="mt-12 grid grid-cols-1 md:grid-cols-2 gap-6">
+          {dept.curriculum.years.map((year, idx) => (
+            <div
+              key={idx}
+              className="group relative rounded-2xl border border-gray-200 bg-white p-6 shadow-sm transition-all duration-300 hover:-translate-y-1 hover:shadow-lg">  
+              <div
+                className="absolute inset-0 opacity-0 group-hover:opacity-100 transition duration-300 rounded-2xl"
+                style={{ backgroundColor: "#1c638b" }}
+              />
+
+              <div className="relative z-10">
+                <div className="flex items-center justify-between">
+                  <h3 className="text-xl font-semibold text-gray-900 transition group-hover:text-white">
+                    {year.title}
+                  </h3>
+                  <span className="h-3 w-3 rounded-full bg-[#1c638b] transition group-hover:bg-white" />
+                </div>
+
+                <p className="mt-2 text-sm text-gray-400 transition group-hover:text-blue-100">
+                  Hover to view details
+                </p>
+
+                <div className="mt-4 h-px bg-gray-100 transition group-hover:bg-white/30" />
+
+                <div className="mt-4 max-h-0 overflow-hidden opacity-0 transition-all duration-500 group-hover:max-h-96 group-hover:opacity-100">
+                  <p className="text-sm text-gray-600 transition group-hover:text-blue-100">
+                    {year.description}
+                  </p>
+
+                  <ul className="mt-3 space-y-2 text-sm text-gray-600">
+                    {year.bullets.map((b, i) => (
+                      <li key={i} className="flex items-start gap-2">
+                        <span className="mt-1.5 h-2 w-2 shrink-0 rounded-full bg-[#1c638b] group-hover:bg-white" />
+                        <span className="transition group-hover:text-white">
+                          {b}
+                        </span>
+                      </li>
+                    ))}
+                  </ul>
+                </div>
+              </div>
+            </div>
+          ))}
+        </div>
+      </section>
+
+      <section id="laboratories" className="mt-10 max-w-6xl mx-auto px-6 pt-16">
         <SectionTitle
           center
           eyebrow={dept.title}
@@ -369,57 +365,58 @@ export default function MEEPage() {
           subtitle="Department laboratories and learning spaces"
         />
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
           {dept.laboratories.items.map((lab, idx) => (
-            <div key={idx} className="rounded-2xl border bg-white p-6">
-              <div className="text-xs font-semibold text-gray-400">
+            <div
+              key={idx}
+              className="group rounded-2xl border border-gray-200 bg-white p-6 transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(28,99,139,0.2)] hover:bg-[#1c638b]">
+              <div className=" text-xs font-semibold tracking-widest text-gray-400 group-hover:text-white/80">
                 LAB {idx + 1}
               </div>
-              <h3 className="mt-2 text-base font-bold text-gray-900">{lab}</h3>
+
+              <h3 className="mt-2 text-base md:text-lg font-bold text-gray-900 group-hover:text-white transition">
+                {lab}
+              </h3>
             </div>
           ))}
         </div>
       </section>
 
-      <section id="faculty" className="max-w-6xl mx-auto px-6 pt-16">
-  <SectionTitle center eyebrow={dept.title} title={dept.faculty.title} />
+      <section id="faculty" className="mt-10 max-w-6xl mx-auto px-6 pt-16">
+        <SectionTitle center eyebrow={dept.title} title={dept.faculty.title} />
 
-  <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
-    {dept.faculty.members.map((member, idx) => (
-      <div
-        key={`${member.name}-${idx}`}
-        className="
-          group overflow-hidden rounded-[2rem] border border-gray-200 bg-white
-          transition-all duration-300
-          hover:-translate-y-2
-          hover:shadow-[0_15px_30px_rgba(28,99,139,0.22)]
-        "
-      >
-        <div className="h-64 w-full overflow-hidden bg-gray-200">
-          <img
-            src={member.image}
-            alt={member.name}
-            className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
-          />
+        <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
+          {dept.faculty.members.map((member, idx) => (
+            <div
+              key={`${member.name}-${idx}`}
+              className="group overflow-hidden rounded-[2rem] border border-gray-200 bg-white transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(28,99,139,0.22)]">
+              <div className="h-64 w-full overflow-hidden bg-gray-200">
+                <img
+                  src={member.image}
+                  alt={member.name}
+                  className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-105"
+                />
+              </div>
+
+              <div className="p-5 text-center transition-colors duration-300 group-hover:bg-[#1c638b]">
+                <h3 className="text-base font-bold uppercase leading-snug text-[#1c638b] transition-colors duration-300 group-hover:text-white">
+                  {member.name}
+                </h3>
+
+                <div className="mx-auto my-3 h-[2px] w-14 bg-[#1c638b]/30 transition-colors duration-300 group-hover:bg-white/50" />
+
+                <p className="text-sm font-semibold uppercase tracking-wider text-gray-500 transition-colors duration-300 group-hover:text-white/85">
+                  {member.role}
+                </p>
+              </div>
+            </div>
+          ))}
         </div>
+      </section>
 
-        <div className="p-5 text-center transition-colors duration-300 group-hover:bg-[#1c638b]">
-          <h3 className="text-base font-bold uppercase leading-snug text-[#1c638b] transition-colors duration-300 group-hover:text-white">
-            {member.name}
-          </h3>
 
-          <div className="mx-auto my-3 h-[2px] w-14 bg-[#1c638b]/30 transition-colors duration-300 group-hover:bg-white/50" />
 
-          <p className="text-sm font-semibold uppercase tracking-wider text-gray-500 transition-colors duration-300 group-hover:text-white/85">
-            {member.role}
-          </p>
-        </div>
-      </div>
-    ))}
-  </div>
-</section>
-
-      <section id="careers" className="max-w-6xl mx-auto px-6 pt-16">
+      <section id="careers" className="mt-10 max-w-6xl mx-auto px-6 pt-16">
         <SectionTitle
           center
           eyebrow={dept.title}
@@ -427,20 +424,33 @@ export default function MEEPage() {
           subtitle={dept.careers.subtitle}
         />
 
-        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-5">
-          {dept.careers.cards.map((card, idx) => (
-            <div
-              key={idx}
-              className="rounded-2xl border bg-white p-6 text-center"
-            >
-              <div className="text-3xl" aria-hidden="true">
-                {card.icon}
-              </div>
-              <h3 className="mt-4 font-bold text-gray-900">{card.title}</h3>
-              <p className="mt-2 text-sm text-gray-600">{card.text}</p>
-            </div>
-          ))}
+        <div className="mt-8 grid grid-cols-1 md:grid-cols-3 gap-6">
+  {dept.careers.cards.map((card, idx) => {
+    const Icon = careerIcons[idx];
+
+    return (
+      <div
+        key={idx}
+        className="group rounded-2xl border-2 border-[#1c638b]/20 bg-[#e8eff3] p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:shadow-[0_15px_30px_rgba(28,99,139,0.25)] hover:bg-[#1c638b] hover:border-[#1c638b]"
+      >
+        {/* ICON */}
+        <div className="mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[#1c638b]/10 group-hover:bg-white/20 transition">
+          <Icon className="h-6 w-6 text-[#1c638b] group-hover:text-white" />
         </div>
+
+        {/* TITLE */}
+        <h3 className="mt-2 font-bold text-gray-900 group-hover:text-white transition">
+          {card.title}
+        </h3>
+
+        {/* TEXT */}
+        <p className="mt-2 text-sm text-gray-700 leading-relaxed text-justify group-hover:text-white/90 transition">
+          {card.text}
+        </p>
+      </div>
+    );
+  })}
+</div>
       </section>
 
       <section id="contact" className="max-w-6xl mx-auto px-6 pt-16">
@@ -484,7 +494,7 @@ function Bullet({ title, text }: { title: string; text: string }) {
       <div className="text-lg font-bold text-gray-900">
         {title}
       </div>
-      <div className="mt-1 text-sm text-gray-600 text-justify leading-relaxed">
+      <div className="text-sm text-gray-700 text-justify leading-relaxed">
         {text}
       </div>
     </div>
@@ -492,22 +502,14 @@ function Bullet({ title, text }: { title: string; text: string }) {
 }
 
 const outcomeIcons = [
-  Lightbulb,
-  Users,
-  FlaskConical,
-  ShieldCheck,
-  Wrench,
-  MessageSquare,
-  Search,
-  Globe,
-  BookOpen,
-  Scale,
-  Cpu,
-  Briefcase,
-  Cog,
-
+  Lightbulb, Users, FlaskConical, ShieldCheck, Wrench, MessageSquare, Search, Globe, BookOpen, Scale, Cpu, Briefcase, Cog, 
 ];
-function OutcomeCard({
+
+const careerIcons = [
+  Cpu, Cog, Wrench,
+];
+
+  function OutcomeCard({
   title,
   text,
   icon: Icon,
@@ -519,20 +521,10 @@ function OutcomeCard({
   return (
     <div
       className="
-        group relative rounded-2xl border border-gray-200 bg-white p-6 text-center
-        transition-all duration-300
-        hover:-translate-y-2
-        hover:bg-[#1c638b]
-        hover:shadow-[0_15px_30px_rgba(28,99,139,0.25)]
-      "
-    >
+        group relative rounded-2xl border border-gray-200 bg-white p-6 text-center transition-all duration-300 hover:-translate-y-2 hover:bg-[#1c638b] hover:shadow-[0_15px_30px_rgba(28,99,139,0.25)]">
       <div
         className="
-          mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl
-          bg-[#1c638b]/10 transition
-          group-hover:bg-white/20
-        "
-      >
+          mx-auto mb-4 flex h-14 w-14 items-center justify-center rounded-xl bg-[#1c638b]/10 transition group-hover:bg-white/20">
         <Icon className="h-6 w-6 text-[#1c638b] group-hover:text-white" />
       </div>
 
@@ -540,7 +532,7 @@ function OutcomeCard({
         {title}
       </div>
 
-      <div className="mt-2 text-sm leading-relaxed text-gray-500 transition group-hover:text-white/90">
+      <div className="mt-2 text-sm leading-relaxed text-gray-700 transition group-hover:text-white/90">
         {text}
       </div>
     </div>
