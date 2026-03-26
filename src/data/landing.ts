@@ -426,8 +426,8 @@ export const landingPageData = {
         quickNav: [
           { label: "Home", href: "/" },
           { label: "Departments", href: "/departments" },
-          { label: "Facilities", href: "/facilities" },
-          { label: "News", href: "/news" },
+          { label: "Facilities", href: "#facilities" },
+          { label: "News", href: "#news" },
         ],
         departments: [
           { label: "CIVIL", href: "/dept/CE" },
