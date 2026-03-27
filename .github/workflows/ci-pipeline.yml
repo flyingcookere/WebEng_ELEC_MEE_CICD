@@ -1,0 +1,135 @@
+name: Group DevOps Pipeline (Vite + React)
+
+on:
+  push:
+    branches:
+      - "**"
+  pull_request:
+    branches:
+      - "**"
+  workflow_dispatch:
+
+jobs:
+  # --- STAGE 1: QUALITY GATE ---
+  quality-gate:
+    runs-on: ubuntu-latest
+    outputs:
+      lint_output: ${{ steps.lint_check.outputs.lint_err }}
+      tsc_output: ${{ steps.tsc_check.outputs.tsc_err }}
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Setup Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 20
+          cache: npm
+
+      - name: Install Dependencies
+        run: npm ci
+
+      - name: Run Lint
+        id: lint_check
+        run: |
+          set -o pipefail
+          if ! npm run lint; then
+            echo "lint_err<<EOF" >> $GITHUB_OUTPUT
+            npm run lint | tail -n 20 >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      - name: Run TypeScript Build Check
+        id: tsc_check
+        run: |
+          set -o pipefail
+          if ! npm run build -- --dry; then
+            echo "tsc_err<<EOF" >> $GITHUB_OUTPUT
+            npm run build -- --dry | tail -n 20 >> $GITHUB_OUTPUT
+            echo "EOF" >> $GITHUB_OUTPUT
+            exit 1
+          fi
+
+      - name: Run Smoke Tests
+        run: |
+          npx vitest run > logs/test_error.txt 2>&1 || (echo "TEST_FAIL=true" >> $GITHUB_ENV && exit 1)
+
+  # --- STAGE 2: BUILD, DOCKER, AND DEPLOY ---
+  build-and-deploy:
+    needs: quality-gate
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      packages: write
+      pull-requests: write
+    steps:
+      - name: Checkout Code
+        uses: actions/checkout@v4
+
+      - name: Log in to GitHub Container Registry
+        uses: docker/login-action@v3
+        with:
+          registry: ghcr.io
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and Tag Docker Image
+        run: |
+          OWNER_LOWER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          SAFE_TAG=$(echo "${{ github.ref_name }}" | tr '/' '-' | tr '[:upper:]' '[:lower:]')
+          IMAGE_ID="ghcr.io/$OWNER_LOWER/webeng:$SAFE_TAG"
+          echo "IMAGE_ID=$IMAGE_ID" >> $GITHUB_ENV
+          docker build -t $IMAGE_ID .
+
+      - name: Test Docker Image
+        run: docker run --rm ${{ env.IMAGE_ID }} ls /usr/share/nginx/html
+
+      - name: Run Trivy Security Scanner
+        uses: aquasecurity/trivy-action@master
+        with:
+          image-ref: ${{ env.IMAGE_ID }}
+          format: table
+          exit-code: 0
+          ignore-unfixed: true
+          severity: "CRITICAL,HIGH"
+
+      - name: Push Docker Image
+        if: github.event_name == 'push' && success()
+        run: docker push ${{ env.IMAGE_ID }}
+
+      - name: Trigger Render Deployment
+        if: github.event_name == 'push' && success() && env.RENDER_URL != ''
+        env:
+          RENDER_URL: ${{ secrets.RENDER_DEPLOY_HOOK }}
+        run: curl -X POST "$RENDER_URL"
+
+  # --- STAGE 3: PR ERROR FEEDBACK ---
+  feedback:
+    needs: [quality-gate, build-and-deploy]
+    if: failure() && github.event_name == 'pull_request'
+    runs-on: ubuntu-latest
+    steps:
+      - name: Post Error Feedback to PR
+        uses: mshick/add-pr-comment@v2
+        with:
+          message: |
+            **DevOps Gatekeeper: Build Blocked**
+
+            ### What went wrong?
+
+            **Linting/Code Style Issues:**
+            ```text
+            ${{ needs.quality-gate.outputs.lint_output || 'No lint errors.' }}
+            ```
+
+            **TypeScript/Type Issues:**
+            ```text
+            ${{ needs.quality-gate.outputs.tsc_output || 'No type errors.' }}
+            ```
+
+            ### 🛠️ Fix
+            1. Correct the reported issues locally.
+            2. Push changes to this branch.
+
+            **[Full Debug Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})**
