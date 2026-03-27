@@ -234,7 +234,7 @@ export default function MEEPage() {
           ))}
         </div>
       </section>
-
+heheheheh;
       <section id="laboratories" className="mt-10 max-w-6xl mx-auto px-6 pt-16">
         <SectionTitle center eyebrow={dept.title} title={dept.laboratories.title} subtitle="Department laboratories and learning spaces" />
         <div className="mt-8 grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">

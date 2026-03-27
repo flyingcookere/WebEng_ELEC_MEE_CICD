@@ -186,22 +186,22 @@ export const MEE = {
       {
         name: "ENGR. SAMPLE NAME",
         role: "FACULTY",
-        image: "/faculty/sample.jpg",
+        image: `${base}/default.png`,
       },
       {
         name: "ENGR. SAMPLE NAME",
         role: "FACULTY",
-        image: "/faculty/sample.jpg",
+        image: `${base}/default.png`,
       },
       {
         name: "ENGR. SAMPLE NAME",
         role: "FACULTY",
-        image: "/faculty/sample.jpg",
+        image: `${base}/default.png`,
       },
       {
         name: "ENGR. SAMPLE NAME",
         role: "FACULTY",
-        image: "/faculty/sample.jpg",
+        image: `${base}/default.png`,
       },
     ]
   },
