@@ -5,7 +5,6 @@ export const MEE = {
   title: "MECHATRONICS ENGINEERING",
   subtitle: "Bachelor of Science in Mechatronics Engineering",
 
-
   theme: { accentHex: "#06b6d4" },
 
   images: {
@@ -109,20 +108,19 @@ export const MEE = {
         text:
           "Understand at least one specialized field of Mechatronics Engineering practice.",
       },
-
     ],
   },
 
-  "curriculum": {
-    "title": "Bachelor of Science in Mechatronics Engineering (BSMEE)",
-    "subtitle": "Bulacan State University – Revised 2024 Curriculum",
-    "text": "The Bachelor of Science in Mechatronics Engineering (BSMEE) program is a comprehensive and interdisciplinary curriculum that integrates mechanical engineering, electrical engineering, electronics, control systems, and computer engineering. It equips students with the knowledge and technical competencies required to design, develop, and maintain automated and intelligent systems used in modern industries.",
-    "structure": "The curriculum is structured over four (4) academic years, combining general education, foundational engineering sciences, professional courses, and practical industry exposure.",
-    "years": [
+  curriculum: {
+    title: "Bachelor of Science in Mechatronics Engineering (BSMEE)",
+    subtitle: "Bulacan State University – Revised 2024 Curriculum",
+    text: "The Bachelor of Science in Mechatronics Engineering (BSMEE) program is a comprehensive and interdisciplinary curriculum that integrates mechanical engineering, electrical engineering, electronics, control systems, and computer engineering. It equips students with the knowledge and technical competencies required to design, develop, and maintain automated and intelligent systems used in modern industries.",
+    structure: "The curriculum is structured over four (4) academic years, combining general education, foundational engineering sciences, professional courses, and practical industry exposure.",
+    years: [
       {
-        "title": "First Year: Foundations",
-        "description": "The first year focuses on building strong foundations in mathematics, natural sciences, communication, and basic engineering principles. It develops analytical thinking, problem-solving skills, and fundamental technical competencies.",
-        "bullets": [
+        title: "First Year: Foundations",
+        description: "The first year focuses on building strong foundations in mathematics, natural sciences, communication, and basic engineering principles. It develops analytical thinking, problem-solving skills, and fundamental technical competencies.",
+        bullets: [
           "Calculus and Engineering Mathematics",
           "Chemistry and Physics for Engineers",
           "Introduction to Engineering and Mechatronics",
@@ -131,9 +129,9 @@ export const MEE = {
         ]
       },
       {
-        "title": "Second Year: Core Engineering Sciences",
-        "description": "The second year emphasizes fundamental engineering concepts and analytical tools. Laboratory courses are integrated to strengthen hands-on skills and the practical application of theories.",
-        "bullets": [
+        title: "Second Year: Core Engineering Sciences",
+        description: "The second year emphasizes fundamental engineering concepts and analytical tools. Laboratory courses are integrated to strengthen hands-on skills and the practical application of theories.",
+        bullets: [
           "Differential Equations and Data Analysis",
           "Engineering Mechanics and Thermodynamics",
           "Electric Circuits and Electronics",
@@ -142,9 +140,9 @@ export const MEE = {
         ]
       },
       {
-        "title": "Third Year: Mechatronics Integration and Specialization",
-        "description": "The third year introduces advanced and specialized mechatronics topics while preparing students for innovation, project development, and industrial practice.",
-        "bullets": [
+        title: "Third Year: Mechatronics Integration and Specialization",
+        description: "The third year introduces advanced and specialized mechatronics topics while preparing students for innovation, project development, and industrial practice.",
+        bullets: [
           "Electromechanical Energy Conversion",
           "Control Systems and Electric Drives",
           "Programmable Logic Controllers (PLC)",
@@ -156,9 +154,9 @@ export const MEE = {
         ]
       },
       {
-        "title": "Fourth Year: Advanced Applications and Design",
-        "description": "The final year focuses on system integration, emerging technologies, and professional preparation. Students complete a capstone project and other culminating requirements.",
-        "bullets": [
+        title: "Fourth Year: Advanced Applications and Design",
+        description: "The final year focuses on system integration, emerging technologies, and professional preparation. Students complete a capstone project and other culminating requirements.",
+        bullets: [
           "Artificial Intelligence in Mechatronics",
           "Process Instrumentation and Control",
           "Motion Control and Industrial Communication Systems",
@@ -188,22 +186,22 @@ export const MEE = {
       {
         name: "ENGR. SAMPLE NAME",
         role: "FACULTY",
-        image: "/faculty/sample.jpg",
+        image: `${base}/default.png`,
       },
       {
         name: "ENGR. SAMPLE NAME",
         role: "FACULTY",
-        image: "/faculty/sample.jpg",
+        image: `${base}/default.png`,
       },
       {
         name: "ENGR. SAMPLE NAME",
         role: "FACULTY",
-        image: "/faculty/sample.jpg",
+        image: `${base}/default.png`,
       },
       {
         name: "ENGR. SAMPLE NAME",
         role: "FACULTY",
-        image: "/faculty/sample.jpg",
+        image: `${base}/default.png`,
       },
     ]
   },
