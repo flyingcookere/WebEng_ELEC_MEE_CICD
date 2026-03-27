@@ -11,7 +11,7 @@ import { Lightbulb, Users, FlaskConical, ShieldCheck, Wrench, MessageSquare, Glo
 export default function MEEPage() {
   const [baseDept] = useState<typeof MEE>(MEE);
   const dept = useMemo(() => mergeDeptWithOverrides(baseDept), [baseDept]);
-  const meeImages = import.meta.glob("../../assets/departments/MEE/*.{png,jpg,jpeg,gif}", { eager: true });
+  //const meeImages = import.meta.glob("../../assets/departments/MEE/*.{png,jpg,jpeg,gif}", { eager: true });
   
   useEffect(() => {
     if (!dept) return;
