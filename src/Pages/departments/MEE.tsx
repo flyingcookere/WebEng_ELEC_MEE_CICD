@@ -10,7 +10,8 @@ import { Lightbulb, Users, FlaskConical, ShieldCheck, Wrench, MessageSquare, Glo
 
 export default function MEEPage() {
   const [baseDept] = useState<typeof MEE>(MEE);
-
+const mimaTest = "This should fail"; // Add this but don't use it anywhere
+console.log(mimaTest);
   const dept = useMemo(() => mergeDeptWithOverrides(baseDept), [baseDept]);
 
   useEffect(() => {
