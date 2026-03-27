@@ -19,32 +19,47 @@ import ResizablePagePreview from "../../components/ResizablePagePreview";
 
 const code = "MEE" as const;
 
-export default function MEEAdminPage() {
-  const [baseDept, setBaseDept] = useState<DepartmentData | null>(null);
-  const [form, setForm] = useState<DepartmentEditableContent | null>(null);
-  const [status, setStatus] = useState("");
-  const [error, setError] = useState("");
+// ... existing imports ...
 
-  useEffect(() => {
+export default function MEEAdminPage() {
+  // Initialize state directly from the helper functions instead of using useEffect
+  const [baseDept] = useState<DepartmentData | null>(() => {
+    try {
+      return getDeptDefaults(code);
+    } catch {
+      return null;
+    }
+  });
+
+  const [form, setForm] = useState<DepartmentEditableContent | null>(() => {
     try {
       const data = getDeptDefaults(code);
       const defaults = extractEditableContent(data);
       const draft = loadDeptDraft(code);
       const overrides = loadDeptOverrides(code);
-
-      setBaseDept(data);
-      setForm(mergeWithShape(defaults, draft ?? overrides));
-      setError("");
-    } catch (err) {
-      const message = err instanceof Error ? err.message : "Failed to load department admin data.";
-      setError(message);
+      return mergeWithShape(defaults, draft ?? overrides);
+    } catch {
+      return null;
     }
-  }, []);
+  });
 
+  const [status, setStatus] = useState("");
+  const [error] = useState(() => {
+    try {
+      getDeptDefaults(code);
+      return "";
+    } catch (err) {
+      return err instanceof Error ? err.message : "Failed to load data.";
+    }
+  });
+
+  // Keep the auto-save effect
   useEffect(() => {
     if (!form) return;
     saveDeptDraft(code, form);
   }, [form]);
+
+  // ... rest of your return statement stays the same ...
 
   if (error) {
     return (

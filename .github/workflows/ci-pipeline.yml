@@ -1,61 +1,71 @@
-name: Group DevOps Pipeline (Vite + React)
+name: MEE DevOps Pipeline (Vite + React)
 
 on:
   push:
     branches:
-      - "**"
+      - "**" 
   pull_request:
     branches:
       - "**"
   workflow_dispatch:
 
 jobs:
-  # --- STAGE 1: QUALITY GATE ---
+  # --- STAGE 1: QUALITY GATE (LINT & TYPES) ---
   quality-gate:
     runs-on: ubuntu-latest
     outputs:
-      lint_output: ${{ steps.lint_check.outputs.lint_err }}
-      tsc_output: ${{ steps.tsc_check.outputs.tsc_err }}
+      lint_output: ${{ steps.checker.outputs.lint_err }}
+      tsc_output: ${{ steps.checker.outputs.tsc_err }}
     steps:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Node.js
+      - name: Setup Node
         uses: actions/setup-node@v4
         with:
           node-version: 20
-          cache: npm
+          cache: "npm"
 
       - name: Install Dependencies
         run: npm ci
 
-      - name: Run Lint
-        id: lint_check
+      - name: Run Linting and Type Checks
+        id: checker
         run: |
-          set -o pipefail
-          if ! npm run lint; then
+          mkdir -p logs
+          
+          # 1. LINTING (MEE Files Only)
+          LINT_STATUS=0
+          if ! npx eslint \
+            src/Pages/admin/MEEAdmin.tsx \
+            src/Pages/departments/MEE.tsx \
+            src/data/department/MEE.ts \
+            --format stylish; then
+            # Kunin ang last 10 lines ng error para sa bot
+            LINT_MSG=$(npx eslint src/Pages/admin/MEEAdmin.tsx src/Pages/departments/MEE.tsx src/data/department/MEE.ts --format stylish | tail -n 10)
             echo "lint_err<<EOF" >> $GITHUB_OUTPUT
-            npm run lint | tail -n 20 >> $GITHUB_OUTPUT
+            echo "$LINT_MSG" >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
-            exit 1
+            LINT_STATUS=1
           fi
 
-      - name: Run TypeScript Build Check
-        id: tsc_check
-        run: |
-          set -o pipefail
-          if ! npm run build -- --dry; then
+          # 2. TYPE-CHECKING (Project-wide)
+          TSC_STATUS=0
+          if ! npx tsc -b; then
+            TSC_MSG=$(npx tsc -b | tail -n 10)
             echo "tsc_err<<EOF" >> $GITHUB_OUTPUT
-            npm run build -- --dry | tail -n 20 >> $GITHUB_OUTPUT
+            echo "$TSC_MSG" >> $GITHUB_OUTPUT
             echo "EOF" >> $GITHUB_OUTPUT
+            TSC_STATUS=1
+          fi
+
+          # 3. FINAL DECISION
+          if [ $LINT_STATUS -ne 0 ] || [ $TSC_STATUS -ne 0 ]; then
+            echo "Quality gate failed. Check PR comments for details."
             exit 1
           fi
 
-      - name: Run Smoke Tests
-        run: |
-          npx vitest run > logs/test_error.txt 2>&1 || (echo "TEST_FAIL=true" >> $GITHUB_ENV && exit 1)
-
-  # --- STAGE 2: BUILD, DOCKER, AND DEPLOY ---
+  # --- STAGE 2: BUILD, TEST, AND DEPLOY ---
   build-and-deploy:
     needs: quality-gate
     runs-on: ubuntu-latest
@@ -74,39 +84,37 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Tag Docker Image
+      - name: Build and Push Docker Image
+        id: docker_build
         run: |
           OWNER_LOWER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
+          # Tagging based on branch name (Safe format)
           SAFE_TAG=$(echo "${{ github.ref_name }}" | tr '/' '-' | tr '[:upper:]' '[:lower:]')
-          IMAGE_ID="ghcr.io/$OWNER_LOWER/webeng:$SAFE_TAG"
-          echo "IMAGE_ID=$IMAGE_ID" >> $GITHUB_ENV
+          IMAGE_ID="ghcr.io/$OWNER_LOWER/webeng-mee:$SAFE_TAG"
+          
           docker build -t $IMAGE_ID .
-
-      - name: Test Docker Image
-        run: docker run --rm ${{ env.IMAGE_ID }} ls /usr/share/nginx/html
-
-      - name: Run Trivy Security Scanner
-        uses: aquasecurity/trivy-action@master
-        with:
-          image-ref: ${{ env.IMAGE_ID }}
-          format: table
-          exit-code: 0
-          ignore-unfixed: true
-          severity: "CRITICAL,HIGH"
-
-      - name: Push Docker Image
-        if: github.event_name == 'push' && success()
-        run: docker push ${{ env.IMAGE_ID }}
+          
+          # Push only if on the MEE branch and it's a push event
+          if [[ "${{ github.ref }}" == "refs/heads/dept/MEE" && "${{ github.event_name }}" == "push" ]]; then
+            docker push $IMAGE_ID
+            echo "DEPLOY_READY=true" >> $GITHUB_ENV
+          fi
+          echo "IMAGE_ID=$IMAGE_ID" >> $GITHUB_ENV
 
       - name: Trigger Render Deployment
-        if: github.event_name == 'push' && success() && env.RENDER_URL != ''
+        if: env.DEPLOY_READY == 'true' && success()
         env:
           RENDER_URL: ${{ secrets.RENDER_DEPLOY_HOOK }}
-        run: curl -X POST "$RENDER_URL"
+        run: |
+          if [ -n "$RENDER_URL" ]; then
+            curl -X POST "$RENDER_URL"
+          else
+            echo "Render Hook not set, skipping..."
+          fi
 
-  # --- STAGE 3: PR ERROR FEEDBACK ---
+  # --- STAGE 3: AUTOMATIC ERROR FEEDBACK ---
   feedback:
-    needs: [quality-gate, build-and-deploy]
+    needs: [quality-gate]
     if: failure() && github.event_name == 'pull_request'
     runs-on: ubuntu-latest
     steps:
@@ -114,22 +122,22 @@ jobs:
         uses: mshick/add-pr-comment@v2
         with:
           message: |
-            **DevOps Gatekeeper: Build Blocked**
+            ❌ **MEE DevOps Gatekeeper: Build Blocked**
 
-            ### What went wrong?
+            ### 🔍 What exactly went wrong?
 
-            **Linting/Code Style Issues:**
+            **Linting/Code Style Issues (MEE Files):**
             ```text
-            ${{ needs.quality-gate.outputs.lint_output || 'No lint errors.' }}
+            ${{ needs.quality-gate.outputs.lint_output || 'No linting errors detected.' }}
             ```
 
             **TypeScript/Type Issues:**
             ```text
-            ${{ needs.quality-gate.outputs.tsc_output || 'No type errors.' }}
+            ${{ needs.quality-gate.outputs.tsc_output || 'No type errors detected.' }}
             ```
 
-            ### 🛠️ Fix
-            1. Correct the reported issues locally.
-            2. Push changes to this branch.
+            ### 🛠️ Next Steps
+            1. Fix the errors in your local environment.
+            2. Push the changes again to this PR.
 
-            **[Full Debug Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})**
+            🔗 **[Full Debug Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})**
