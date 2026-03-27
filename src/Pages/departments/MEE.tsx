@@ -11,7 +11,8 @@ import { Lightbulb, Users, FlaskConical, ShieldCheck, Wrench, MessageSquare, Glo
 export default function MEEPage() {
   const [baseDept] = useState<typeof MEE>(MEE);
   const dept = useMemo(() => mergeDeptWithOverrides(baseDept), [baseDept]);
-
+  const meeImages = import.meta.glob("../../assets/departments/MEE/*.{png,jpg,jpeg,gif}", { eager: true });
+  
   useEffect(() => {
     if (!dept) return;
 
@@ -233,7 +234,7 @@ export default function MEEPage() {
             </div>
           ))}
         </div>
-      </section
+      </section>
 
       <section id="laboratories" className="mt-10 max-w-6xl mx-auto px-6 pt-16">
         <SectionTitle center eyebrow={dept.title} title={dept.laboratories.title} subtitle="Department laboratories and learning spaces" />
