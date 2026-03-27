@@ -341,7 +341,37 @@ export const landingPageData = {
       title: "Facilities",
       assignedGroup: "Jones, Colleen Iris P",
       statusLabel: "RESERVED SECTION",
-      highlights: ["Placeholder Facility 1", "Placeholder Facility 2"],
+      highlights: ["Lorem", "Ispum", "Dolor"],
+      images: [
+        { 
+          url: "/departments/MFE/facilities/COE2.png", 
+          caption: "Facility 1" 
+        },
+        { 
+          url: "/departments/MFE/facilities/COE2-204.png",  
+          caption: "Facility 2" 
+        },
+        { 
+          url: "/departments/MFE/facilities/COE2-07.png", 
+          caption: "Facility 3"  
+        },
+        { 
+          url: "/departments/MFE/facilities/NATIVIDAD.png", 
+          caption: "Facility 4" 
+        },
+        { 
+          url: "/departments/MFE/facilities/NH401.png", 
+          caption: "Facility 5" 
+        },
+        { 
+          url: "/departments/MFE/facilities/NH402.png", 
+          caption: "Facility 6" 
+        },
+        { 
+          url: "/departments/MFE/facilities/NH403.png", 
+          caption: "Facility 7" 
+        },
+      ],
     },
     statistics: {
       id: "statistics",
@@ -378,6 +408,67 @@ export const landingPageData = {
         { label: "Privacy", href: "#" },
         { label: "Contact", href: "#contact" },
       ],
+      phone: "(044) 919 7800",
+      email: "engineering@bulsu.edu.ph",
+      address: "Bulacan State University, Engineering Building, Malolos City",
+      socialLinks: [
+        { label: "Facebook", href: "", icon: "facebook" },
+      ],
+      quickLinks: [
+        { label: "Site Map", href: "/sitemap" },
+        { label: "Accessibility", href: "/accessibility" },
+        { label: "Terms of Service", href: "/terms" },
+      ],
+      copyrightText: "© 2026 Bulacan State University College of Engineering. All rights reserved.",
+      operatingHours: "Monday - Friday: 8:00 AM - 5:00 PM",
+      contactHeader: "Contact Details",
+      linkPreviews: {
+        quickNav: [
+          { label: "Home", href: "/" },
+          { label: "Departments", href: "/departments" },
+          { label: "Facilities", href: "#facilities" },
+          { label: "News", href: "#news" },
+        ],
+        departments: [
+          { label: "CIVIL", href: "/dept/CE" },
+          { label: "COMPUTER", href: "/dept/CPE" },
+          { label: "MECHANICAL", href: "/dept/ME" },
+          { label: "INDUSTRIAL", href: "/dept/IE" },
+          { label: "ELECTRICAL", href: "/dept/EE" },
+          { label: "ELECTRONICS", href: "/dept/ECE" },
+          { label: "MECHATRONICS", href: "/dept/MEE" },
+          { label: "MANUFACTURING", href: "/dept/MFE" },
+        ],
+      },
+      animations: {
+        linkHover: {
+          type: "scale-shadow",
+          scale: 1.05,
+          duration: 200,
+          shadowColor: "rgba(153, 27, 27, 0.15)",
+        },
+        socialIconHover: {
+          type: "rotate-scale",
+          rotate: 10,
+          scale: 1.15,
+          duration: 250,
+        },
+        sectionFadeIn: {
+          type: "stagger-fade",
+          duration: 600,
+          staggerDelay: 100,
+        },
+        colorTransition: {
+          hoverColor: "text-yellow-400",
+          duration: 300,
+          accentColor: "#FBBF24",
+        },
+      },
+      backToTop: {
+        enabled: true,
+        label: "Top",
+        scrollSpeed: 300,
+      },
     },
   },
 };

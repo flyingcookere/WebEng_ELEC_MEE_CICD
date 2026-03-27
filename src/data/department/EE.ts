@@ -13,7 +13,7 @@ export const EE = {
     heroLeft: `${base}/lente.png`,
     heroBig: `${base}/cover.png`,
     heroSmall1: `${base}/passing.png`,
-    heroSmall2: `${base}/logo.png`,
+    heroSmall2: `${base}/authomathic_2026.jpg`,
     peo: `${base}/ee-logo.png`,
     watermark: `${base}/watermark.png`
   },
@@ -37,7 +37,7 @@ export const EE = {
     stats: {
       nonTeaching: 0,
       faculty: 16,
-      students: 512
+      students: 555
     }
   },
 
@@ -103,17 +103,17 @@ export const EE = {
       {
         title: "J",
         text: "An understanding of contemporary issues and emerging technologies in electrical engineering.",
-        iconUrl: "https://www.svgrepo.com/download/112258/thinking.svg"
+        iconUrl: "https://www.svgrepo.com/show/167185/thinking.svg"
       }
     ]
   },
 
   curriculum: {
     title: "Curriculum Overview",
-    text: "The 2024 Revised Bachelor of Science in Electrical Engineering curriculum...",
+    text: "",
     years: [
       {
-        id: "1st-Year", label: "First Year",
+        id: "1st-Year", label: "FIRST YEAR",
         terms: [
           {
             name: "First Semester",
@@ -155,7 +155,7 @@ export const EE = {
       },
 
       {
-        id: "2nd-Year", label: "Second Year",
+        id: "2nd-Year", label: "SECOND YEAR",
         terms: [
           {
             name: "First Semester",
@@ -198,7 +198,7 @@ export const EE = {
       },
 
       {
-        id: "3rd-Year", label: "Third Year",
+        id: "3rd-Year", label: "THIRD YEAR",
         terms: [
           {
             name: "First Semester",
@@ -241,10 +241,10 @@ export const EE = {
       },
 
       {
-        id: "summer", label: "Summer Term",
+        id: "summer", label: "SUMMER TERM",
         terms: [
           {
-            name: "Summer Session",
+            name: "Summer of Third Year",
             courses: [
               { code: "OJT 400", title: "On the Job Training (OJT)", lab_units: 5, lab_hours: 250, lec_units: 0, lec_hours: 0, prereq: "EE 300, EE 301/301L, EE 302/302L, EE 303/303L, EE 304/304L, EE 306/306L, EE 307, EE 309/309L, EE 310/310L, EE 311/311L, EE 313, EE 314/314L, EE 315, EE 316, EE 317, EE 318", coreq: "None" },
               { code: "TOTAL", title: "", lab_units: 5, lab_hours: 250, lec_units: 0, lec_hours: 0, prereq: "", coreq: "" },
@@ -254,7 +254,7 @@ export const EE = {
       }, 
       
       {
-        id: "4th-Year", label: "Fourth Year",
+        id: "4th-Year", label: "FOURTH YEAR",
         terms: [
           {
             name: "First Semester",
@@ -431,7 +431,7 @@ export const EE = {
 
   careers: {
     title: "Career Opportunities",
-    subtitle: "Edit careers subtitle here.",
+    subtitle: "",
     categories: [
       {
         title: "Power and Energy Sector Careers",

@@ -1,4 +1,4 @@
-import { useEffect, useMemo, useRef, useState, type ReactNode } from "react";
+import { useEffect, useMemo, useRef, useState } from "react";
 import { Building2, CalendarDays, Send, Users, ArrowUpRight } from "lucide-react";
 import { Link, useNavigate } from "react-router-dom";
 import { landingPageData, type LandingPageData } from "../data/landing";
@@ -7,6 +7,7 @@ import {
   mergeLandingWithOverrides,
 } from "../lib/landingAdmin";
 import { Mail } from "lucide-react";
+import Footer from "../components/Footer";
 
 import CE_Img from '../assets/Civil_Engineering.jpg';
 import CPE_Img from '../assets/Computer_Engineering.jpg';
@@ -752,15 +753,130 @@ useEffect(() => {
 }
 
 function FacilitiesSection({ data }: { data: Sections["facilities"] }) {
+  const [selectedImage, setSelectedImage] = useState<string | null>(null);
+  const [isGridView, setIsGridView] = useState(false);
+  
+  const images = data.images || [];
+  const marqueeImages = [...images, ...images];
+
   return (
     <section id="facilities" className="max-w-6xl mx-auto px-6 py-10">
-      <SectionCard data={data}>
-        <div className="mt-3 space-y-1 text-sm text-gray-600">
-          {data.highlights.map((item, idx) => (
-            <p key={idx}>- {item}</p>
-          ))}
+      <div className="relative overflow-hidden rounded-3xl bg-white border border-gray-100 p-8 md:p-10 shadow-[0_8px_30px_rgba(169,0,0,0.06)]">
+        
+        <div className="absolute -right-20 -top-20 h-64 w-64 rounded-full bg-orange-500 opacity-10 blur-[80px] pointer-events-none"></div>
+        <div className="absolute -bottom-20 -left-20 h-64 w-64 rounded-full bg-red-500 opacity-10 blur-[80px] pointer-events-none"></div>
+
+        <div className="relative z-30 flex flex-col md:flex-row items-start md:items-end justify-between gap-4 mb-10 border-b border-gray-100 pb-6">
+          <div>
+            <p className="text-xs font-bold tracking-[0.2em] text-orange-500 uppercase mb-1">College of Engineering</p>
+            <h2 className="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-[#a90000] to-orange-500 tracking-tighter leading-none">
+              Facilities
+            </h2>
+          </div>
+          
+          <button 
+            onClick={() => setIsGridView(!isGridView)}
+            className="group relative z-40 px-6 py-3 bg-[#a90000] text-white text-xs font-bold uppercase tracking-widest rounded-full transition-all hover:bg-black hover:scale-105 active:scale-95 shadow-lg shadow-red-900/20"
+          >
+            {isGridView ? "Close" : "View All Facilities"}
+          </button>
         </div>
-      </SectionCard>
+
+        <div className="relative transition-all duration-700 ease-in-out">
+          
+          <div className={`
+            transition-all duration-500 ease-in-out
+            ${isGridView 
+              ? "opacity-100 translate-y-0 pointer-events-auto relative z-20 h-auto" 
+              : "opacity-0 translate-y-10 pointer-events-none absolute z-0 h-0 overflow-hidden"}
+          `}>
+            <div className="grid grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-4">
+              {images.map((img, idx) => (
+                <div 
+                  key={`grid-${idx}`}
+                  onClick={(e) => {
+                    e.stopPropagation();
+                    setSelectedImage(img.url);
+                  }}
+                  className="group relative aspect-square cursor-zoom-in overflow-hidden rounded-2xl border border-gray-100 bg-gray-50 transition-all duration-300 hover:-translate-y-1 hover:shadow-lg"
+                >
+                  <img src={img.url} alt={img.caption} className="h-full w-full object-cover transition-transform duration-500 group-hover:scale-110" />
+                  <div className="absolute inset-0 bg-black/40 opacity-0 group-hover:opacity-100 transition-opacity flex items-center justify-center p-4">
+                     <p className="text-[10px] text-white font-black uppercase text-center tracking-tighter">{img.caption}</p>
+                  </div>
+                </div>
+              ))}
+            </div>
+          </div>
+
+          <div className={`
+            transition-all duration-500 ease-in-out
+            ${!isGridView 
+              ? "opacity-100 scale-100 pointer-events-auto relative z-20 h-auto" 
+              : "opacity-0 scale-95 pointer-events-none absolute z-0 h-0 overflow-hidden"}
+          `}>
+            <div className="relative -mx-8 md:-mx-10 overflow-hidden group">
+              <div className="absolute left-0 top-0 bottom-0 w-20 z-20 bg-gradient-to-r from-white to-transparent pointer-events-none"></div>
+              <div className="absolute right-0 top-0 bottom-0 w-20 z-20 bg-gradient-to-l from-white to-transparent pointer-events-none"></div>
+
+              <div className="flex gap-5 animate-infinite-scroll group-hover:[animation-play-state:paused]">
+                {marqueeImages.map((img, idx) => (
+                  <div 
+                    key={`marquee-${idx}`} 
+                    onClick={(e) => {
+                      e.stopPropagation();
+                      setSelectedImage(img.url);
+                    }}
+                    className="relative flex-none w-[320px] md:w-[420px] aspect-video rounded-2xl overflow-hidden border border-gray-100 bg-gray-50 transition-all duration-500 hover:border-orange-300 hover:shadow-xl cursor-zoom-in"
+                  >
+                    <img 
+                      src={img.url} 
+                      alt={img.caption || 'Facility'} 
+                      className="h-full w-full object-cover transition-transform duration-700 hover:scale-110" 
+                    />
+                    <div className="absolute inset-0 bg-gradient-to-t from-black/90 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 p-6 flex flex-col justify-end">
+                      <p className="text-white font-black text-xs uppercase tracking-widest">{img.caption}</p>
+                    </div>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </div>
+
+        {selectedImage && (
+          <div 
+            className="fixed inset-0 z-[100] flex items-center justify-center bg-black/95 p-4 backdrop-blur-sm transition-opacity duration-300"
+            onClick={() => setSelectedImage(null)}
+          >
+            <button className="absolute top-8 right-8 text-white/50 hover:text-white text-4xl font-light">&times;</button>
+            <img 
+              src={selectedImage} 
+              className="max-w-full max-h-[85vh] rounded-lg shadow-2xl scale-100 transition-transform duration-300" 
+              alt="Enlarged facility"
+              onClick={(e) => e.stopPropagation()} 
+            />
+          </div>
+        )}
+
+        <div className="relative z-10 mt-8 flex items-center justify-center gap-3">
+            <span className="h-[1px] w-8 bg-gray-100"></span>
+            <p className="text-[9px] font-bold text-gray-300 uppercase tracking-[0.4em]">Engineering Excellence</p>
+            <span className="h-[1px] w-8 bg-gray-100"></span>
+        </div>
+      </div>
+
+      <style>{`
+        @keyframes infinite-scroll {
+          from { transform: translateX(0); }
+          to { transform: translateX(-50%); }
+        }
+        .animate-infinite-scroll {
+          display: flex;
+          width: max-content;
+          animation: infinite-scroll 50s linear infinite;
+        }
+      `}</style>
     </section>
   );
 }
@@ -902,32 +1018,6 @@ function ContactSection({ data }: { data: Sections["contact"] }) {
   );
 }
 
-function LandingFooterSection({ data }: { data: Sections["footer"] }) {
-  return (
-    <footer id="footer" className="border-t bg-gray-100">
-      <div className="max-w-6xl mx-auto px-6 py-8 text-sm text-gray-500">
-        <p>{data.statusLabel}: {data.assignedGroup}</p>
-        <div className="mt-3 flex flex-wrap gap-4">
-          {data.links.map((link, idx) => (
-            <a key={idx} href={link.href} className="text-sm text-gray-700 underline">{link.label}</a>
-          ))}
-        </div>
-      </div>
-    </footer>
-  );
-}
-
-function SectionCard({ data, children }: { data: { id: string; title: string; assignedGroup: string; statusLabel: string }; children?: ReactNode }) {
-  return (
-    <div className="rounded-2xl border-2 border-dashed border-gray-300 bg-gray-50 px-6 py-10 text-center">
-      <p className="text-xs font-semibold tracking-[0.14em] text-gray-500">{data.statusLabel}</p>
-      <h2 className="mt-3 text-2xl font-bold text-gray-900">{data.title}</h2>
-      <p className="mt-2 text-sm text-gray-600">{data.assignedGroup}</p>
-      {children}
-    </div>
-  );
-}
-
 export default function LandingPage() {
   const isPreviewMode = useMemo(() => {
     if (typeof window === "undefined") return false;
@@ -1019,7 +1109,7 @@ export default function LandingPage() {
         <StatisticsSection data={sections.statistics} />
         <ContactSection data={sections.contact} />
       </main>
-      <LandingFooterSection data={sections.footer} />
+      <Footer />
     </div>
   );
 }

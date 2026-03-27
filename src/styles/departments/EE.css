@@ -37,6 +37,11 @@
   background: #7F1D1D;
 }
 
+html, body {
+  max-width: 100%;
+  overflow-x: hidden;
+}
+
 @keyframes logo-float {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(-12px); }
@@ -84,7 +89,7 @@
 
 .peo-card-racing:hover::before {
   opacity: 1;
-  animation: border-rotate 2s linear infinite;
+  animation: border-rotate 4s linear infinite;
 }
 
 .custom-scrollbar {
