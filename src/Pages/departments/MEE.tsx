@@ -10,7 +10,6 @@ import { Lightbulb, Users, FlaskConical, ShieldCheck, Wrench, MessageSquare, Glo
 
 export default function MEEPage() {
   const [baseDept] = useState<typeof MEE>(MEE);
-const mimaTest: number = "This is not a number";
   const dept = useMemo(() => mergeDeptWithOverrides(baseDept), [baseDept]);
 
   useEffect(() => {
