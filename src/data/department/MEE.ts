@@ -28,7 +28,7 @@ export const MEE = {
   },
 
   peo: {
-    title: "HI THIS IS THE PEO R U OK",
+    title: "Program Educational Objectives",
     subtitle:
       "Graduates are expected to achieve the following objectives a few years after graduation:",
     bullets: [
