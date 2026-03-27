@@ -19,8 +19,6 @@ import ResizablePagePreview from "../../components/ResizablePagePreview";
 
 const code = "MEE" as const;
 
-// ... existing imports ...
-
 export default function MEEAdminPage() {
   // Initialize state directly from the helper functions instead of using useEffect
   const [baseDept] = useState<DepartmentData | null>(() => {
@@ -58,8 +56,6 @@ export default function MEEAdminPage() {
     if (!form) return;
     saveDeptDraft(code, form);
   }, [form]);
-
-  // ... rest of your return statement stays the same ...
 
   if (error) {
     return (

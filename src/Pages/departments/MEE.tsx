@@ -316,7 +316,6 @@ function Stat({ value, label, accentHex }: { value: number; label: string; accen
 const outcomeIcons = [Lightbulb, Users, FlaskConical, ShieldCheck, Wrench, Scale, MessageSquare, Globe, BookOpen, Scale, Cpu, Briefcase, Cog];
 const careerIcons = [Cpu, Cog, Wrench];
 
-// At the bottom, update the OutcomeCard function:
 function OutcomeCard({ 
   title, 
   text, 
