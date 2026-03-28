@@ -5,14 +5,15 @@ on:
     branches:
       - "main"
       - "dept/MEE"
-      - "**"
+      - "**" # Watch all branches for quality checks
   pull_request:
     branches:
-      - "main"
+      - "main" # Monitor all PRs targeting the main branch
   workflow_dispatch:
 
 jobs:
   # --- STAGE 1: QUALITY GATE (LINT & TYPES) ---
+  # This job runs on EVERY push to ensure code integrity
   quality-gate:
     runs-on: ubuntu-latest
     outputs:
@@ -22,7 +23,7 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Setup Node
+      - name: Setup Node.js
         uses: actions/setup-node@v4
         with:
           node-version: 20
@@ -36,14 +37,14 @@ jobs:
         run: |
           mkdir -p logs
           
-          # 1. LINTING (MEE Files Only)
+          # 1. LINTING (Restricted to MEE specific files)
           LINT_STATUS=0
           if ! npx eslint \
             src/Pages/admin/MEEAdmin.tsx \
             src/Pages/departments/MEE.tsx \
             src/data/department/MEE.ts \
             --format stylish; then
-            # Kunin ang last 10 lines ng error para sa bot
+            # Capture last 10 lines of error for PR feedback
             LINT_MSG=$(npx eslint src/Pages/admin/MEEAdmin.tsx src/Pages/departments/MEE.tsx src/data/department/MEE.ts --format stylish | tail -n 10)
             echo "lint_err<<EOF" >> $GITHUB_OUTPUT
             echo "$LINT_MSG" >> $GITHUB_OUTPUT
@@ -51,7 +52,7 @@ jobs:
             LINT_STATUS=1
           fi
 
-          # 2. TYPE-CHECKING (Project-wide)
+          # 2. TYPE-CHECKING (Project-wide verification)
           TSC_STATUS=0
           if ! npx tsc -b; then
             TSC_MSG=$(npx tsc -b | tail -n 10)
@@ -61,15 +62,17 @@ jobs:
             TSC_STATUS=1
           fi
 
-          # 3. FINAL DECISION
+          # 3. FINAL VALIDATION
           if [ $LINT_STATUS -ne 0 ] || [ $TSC_STATUS -ne 0 ]; then
-            echo "Quality gate failed. Check PR comments for details."
+            echo "Quality gate failed. Terminating pipeline."
             exit 1
           fi
 
-  # --- STAGE 2: BUILD, TEST, AND DEPLOY ---
+  # --- STAGE 2: BUILD AND DEPLOY ---
+  # This job ONLY runs if Quality Gate passes AND we are on the MAIN branch
   build-and-deploy:
     needs: quality-gate
+    if: github.ref == 'refs/heads/main' && github.event_name == 'push'
     runs-on: ubuntu-latest
     permissions:
       contents: read
@@ -79,45 +82,37 @@ jobs:
       - name: Checkout Code
         uses: actions/checkout@v4
 
-      - name: Log in to GitHub Container Registry
+      - name: Log in to GitHub Container Registry (GHCR)
         uses: docker/login-action@v3
         with:
           registry: ghcr.io
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      - name: Build and Push Docker Image
+      - name: Build and Push Production Docker Image
         id: docker_build
         run: |
+          # Convert repository owner to lowercase for Docker compatibility
           OWNER_LOWER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          # Tag will always be 'main' for the production image
           IMAGE_ID="ghcr.io/$OWNER_LOWER/webeng-mee:main"
           
-          # --- LOGIC START ---
-          # 1. KUNG ang branch ay 'main' at ito ay isang PUSH (including Merge), mag-BU-BUILD at PUSH tayo.
-          if [[ "${{ github.ref }}" == "refs/heads/main" && "${{ github.event_name }}" == "push" ]]; then
-            echo "Branch is Main. Starting Production Build..."
-            docker build -t $IMAGE_ID .
-            docker push $IMAGE_ID
-            echo "DEPLOY_READY=true" >> $GITHUB_ENV
-          else
-            # 2. KUNG nasa dept/MEE ka, lalaktawan natin ang Build/Deploy stage.
-            echo "🚧 Working on Branch: ${{ github.ref_name }}. Skipping Build and Deploy for now."
-            echo "DEPLOY_READY=false" >> $GITHUB_ENV
-          fi
+          echo "Starting production build for Main branch..."
+          docker build -t $IMAGE_ID .
+          docker push $IMAGE_ID
+          echo "IMAGE_ID=$IMAGE_ID" >> $GITHUB_ENV
 
-      - name: Trigger Render Deployment
-        if: env.DEPLOY_READY == 'true' && success()
+      - name: Trigger Render Deployment Hook
         env:
           RENDER_URL: ${{ secrets.RENDER_DEPLOY_HOOK }}
         run: |
           if [ -n "$RENDER_URL" ]; then
             curl -X POST "$RENDER_URL"
           else
-            echo "Render Hook not set, skipping..."
+            echo "Render Deploy Hook not found. Skipping deployment."
           fi
 
-  # --- STAGE 3: AUTOMATIC ERROR FEEDBACK ---
+  # --- STAGE 3: AUTOMATIC PR FEEDBACK ---
+  # Only posts comments if Stage 1 fails during a Pull Request
   feedback:
     needs: [quality-gate]
     if: failure() && github.event_name == 'pull_request'
@@ -145,4 +140,4 @@ jobs:
             1. Fix the errors in your local environment.
             2. Push the changes again to this PR.
 
-            🔗 **[Full Debug Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})**
+            🔗 **[View Full Debug Logs](${{ github.server_url }}/${{ github.repository }}/actions/runs/${{ github.run_id }})**
