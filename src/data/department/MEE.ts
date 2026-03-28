@@ -228,7 +228,7 @@ export const MEE = {
         title: "Embedded Systems Engineer",
         text:
           "Develop firmware and hardware integrations using sensors, microcontrollers, and IoT technologies.",
-      },
+      },}}}}
     ],
   },
 };
