@@ -3,10 +3,12 @@ name: MEE DevOps Pipeline (Vite + React)
 on:
   push:
     branches:
-      - "**" 
+      - "main"
+      - "dept/MEE"
+      - "**"
   pull_request:
     branches:
-      - "**"
+      - "main"
   workflow_dispatch:
 
 jobs:
@@ -84,23 +86,25 @@ jobs:
           username: ${{ github.actor }}
           password: ${{ secrets.GITHUB_TOKEN }}
 
-      #docker image to main 
       - name: Build and Push Docker Image
         id: docker_build
         run: |
           OWNER_LOWER=$(echo "${{ github.repository_owner }}" | tr '[:upper:]' '[:lower:]')
-          # Tagging based on branch name (Safe format)
-          SAFE_TAG=$(echo "${{ github.ref_name }}" | tr '/' '-' | tr '[:upper:]' '[:lower:]')
-          IMAGE_ID="ghcr.io/$OWNER_LOWER/webeng-mee:$SAFE_TAG"
+          # Tag will always be 'main' for the production image
+          IMAGE_ID="ghcr.io/$OWNER_LOWER/webeng-mee:main"
           
-          docker build -t $IMAGE_ID .
-          
-          # Push only if on the MEE branch and it's a push event
-          if [[ "${{ github.ref }}" == "refs/heads/dept/MEE" && "${{ github.event_name }}" == "push" ]]; then
+          # --- LOGIC START ---
+          # 1. KUNG ang branch ay 'main' at ito ay isang PUSH (including Merge), mag-BU-BUILD at PUSH tayo.
+          if [[ "${{ github.ref }}" == "refs/heads/main" && "${{ github.event_name }}" == "push" ]]; then
+            echo "Branch is Main. Starting Production Build..."
+            docker build -t $IMAGE_ID .
             docker push $IMAGE_ID
             echo "DEPLOY_READY=true" >> $GITHUB_ENV
+          else
+            # 2. KUNG nasa dept/MEE ka, lalaktawan natin ang Build/Deploy stage.
+            echo "🚧 Working on Branch: ${{ github.ref_name }}. Skipping Build and Deploy for now."
+            echo "DEPLOY_READY=false" >> $GITHUB_ENV
           fi
-          echo "IMAGE_ID=$IMAGE_ID" >> $GITHUB_ENV
 
       - name: Trigger Render Deployment
         if: env.DEPLOY_READY == 'true' && success()
