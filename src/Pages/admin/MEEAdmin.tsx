@@ -105,7 +105,7 @@ export default function MEEAdminPage() {
     } catch {
       setStatus("Clipboard access failed. Use Download JSON instead.");
     }
-  };
+  };}}}[][][']fkosadjjfuiosd fhodfhbngj rfmntglsdrkgh
 
   return (
     <AdminAccessGate scopeKey={`department-${code}`} title={`${code} Department Admin`}>
