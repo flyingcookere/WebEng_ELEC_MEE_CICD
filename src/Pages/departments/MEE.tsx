@@ -289,7 +289,7 @@ export default function MEEPage() {
       <section id="contact" className="max-w-6xl mx-auto px-6 pt-16">
         <div className="rounded-2xl border bg-gray-50 p-6 md:p-8">
           <h2 className="text-2xl font-bold text-gray-900">Department Contact</h2>
-          <p className="mt-7 text-xl text-gray-900 font-bold">Engr. Arvin Julius Tullao</p>
+          <p className="mt-7 text-xl text-gray-900 font-bold">ENGR. MALUPIT</p>
           <p className="mt-1 text-sm text-gray-500 font-semibold">DEPARTMENT HEAD</p>
           <div className="mt-7 flex items-center gap-3">
             <div className="flex h-10 w-10 items-center justify-center rounded-full bg-[#1c638b]/10">
