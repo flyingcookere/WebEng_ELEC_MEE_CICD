@@ -8,6 +8,8 @@ import { MEE } from "../../data/department/MEE";
 import "../../styles/departments/MEE.css";
 import { Lightbulb, Users, FlaskConical, ShieldCheck, Wrench, MessageSquare, Globe, BookOpen, Scale, Cpu, Briefcase, Cog } from "lucide-react";
 
+
+
 export default function MEEPage() {
   const [baseDept] = useState<typeof MEE>(MEE);
   const dept = useMemo(() => mergeDeptWithOverrides(baseDept), [baseDept]);
