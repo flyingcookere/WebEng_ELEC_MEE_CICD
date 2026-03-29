@@ -28,7 +28,6 @@ export default function MEEAdminPage() {
       return null;
     }
   });
-
   const [form, setForm] = useState<DepartmentEditableContent | null>(() => {
     try {
       const data = getDeptDefaults(code);
